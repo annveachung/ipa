@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IPA · Pulmonic Consonants</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Gentium+Book+Plus:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wall: #1d1915;
+    --wall-hi: #2a241d;
+    --floor: #0d0b09;
+    --paper: #f3efe6;
+    --paper-2: #ebe5d8;
+    --ink: #211d18;
+    --ink-soft: #211d1899;
+    --rule: #211d1826;
+    --plaque: #d9d2c3;
+    --text: #eee;
+    --muted: #888;
+    --glow: #ffe9b0;
+    --accent: #9a5b2a;
+  }
+  * { box-sizing: border-box; margin: 0 }
+  html, body { min-height: 100%; background: #000 }
+  body {
+    font: 14px/1.5 Inter, system-ui, sans-serif; color: var(--text);
+    background:
+      radial-gradient(ellipse 60% 45% at 50% 38%, #3a3127 0%, transparent 70%),
+      linear-gradient(to bottom, transparent 0 86%, #0006 86%, var(--floor) 100%),
+      repeating-linear-gradient(90deg, #ffffff03 0 2px, transparent 2px 7px),
+      linear-gradient(var(--wall-hi), var(--wall));
+    background-attachment: fixed;
+    overflow-x: hidden;
+  }
+  @media (pointer: fine) { body, body * { cursor: none } }
+
+  main { position: relative; min-height: 100vh; padding: clamp(28px, 5vh, 56px) 16px 120px;
+         display: flex; flex-direction: column; align-items: center }
+
+  /* ---- intro ---- */
+  .intro { width: min(1180px, 100%); display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; margin-bottom: clamp(40px, 7vh, 80px) }
+  .intro small { display: block; margin-bottom: 18px; letter-spacing: .2em; text-transform: uppercase; font-size: 11px; color: var(--muted) }
+  .intro h1 { font: 300 clamp(40px, 5.4vw, 84px)/.95 Fraunces, serif; letter-spacing: -.02em }
+  .intro h1 em { font-weight: 600; font-style: normal }
+  .intro p { max-width: 34ch; color: #bbb; font-size: 15px }
+
+  /* ---- the hung piece ---- */
+  .piece { position: relative; width: min(1180px, 100%); display: flex; flex-direction: column; align-items: center }
+  .lamp { width: 180px; height: 10px; border-radius: 0 0 6px 6px; margin-bottom: 26px;
+          background: linear-gradient(#3b342b, #15120f); box-shadow: 0 6px 18px -2px #ffd27a55, inset 0 -2px 0 #ffd27a66 }
+  .cone { position: absolute; top: -30px; left: 50%; width: 120%; height: 120%; transform: translateX(-50%); pointer-events: none;
+          background: radial-gradient(ellipse 45% 60% at 50% 30%, #fff6e055, transparent 70%); mix-blend-mode: soft-light }
+  .piece, .frame, .scroll { min-width: 0; max-width: 100% }
+  .frame { position: relative; width: 100%; padding: clamp(14px, 2.2vw, 30px); background: var(--paper);
+           box-shadow: 0 0 0 10px #111, 0 0 0 11px #2b2620, 0 40px 80px -20px #000, 0 70px 120px -40px #000;
+           color: var(--ink) }
+  .frame::after { /* paper grain */ content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
+           background: radial-gradient(ellipse at 30% 20%, #fff8 0, transparent 60%), radial-gradient(ellipse at 80% 90%, #c9bfa955 0, transparent 60%) }
+  .frame-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 0 2px 14px; border-bottom: 1px solid var(--ink) }
+  .frame-head h2 { font: 600 clamp(16px, 1.6vw, 20px)/1.1 Fraunces, serif; letter-spacing: .01em }
+  .frame-head h2 span { font-weight: 300; font-style: italic }
+  .frame-head small { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap }
+
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; z-index: 1 }
+  table { width: 100%; min-width: 900px; border-collapse: collapse; table-layout: fixed }
+  th, td { border: 1px solid var(--rule); height: clamp(44px, 5.2vw, 58px); text-align: center; padding: 0 }
+  tr > :first-child { border-left: 0 } tr > :last-child { border-right: 0 }
+  thead th { border-top: 0; height: auto; padding: 14px 2px 10px; font: 500 9.5px/1.2 Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); vertical-align: bottom; transition: color .25s }
+  tbody th { text-align: left; padding: 0 10px 0 2px; font: 300 italic 15px/1.1 Fraunces, serif; color: var(--ink); transition: color .25s }
+  thead th:first-child { width: 132px }
+  tbody tr:last-child > * { border-bottom: 0 }
+  th.on { color: var(--accent) }
+
+  td { position: relative }
+  td .pair { display: grid; grid-template-columns: 1fr 1fr; height: 100%; align-items: center; max-width: 8.5em; margin: 0 auto; position: relative; z-index: 1 }
+  td.sh-b, td.sh-l::before, td.sh-r::before { background:
+      repeating-linear-gradient(135deg, #211d1830 0 1px, transparent 1px 6px), #211d1812 }
+  td.sh-l::before, td.sh-r::before { content: ""; position: absolute; top: 0; bottom: 0; width: 50% }
+  td.sh-l::before { left: 0 } td.sh-r::before { right: 0 }
+
+  .sym { display: inline-block; justify-self: center; min-width: 1.4em; padding: 2px 0; border-radius: 3px; outline: none;
+         font: 400 clamp(22px, 2.3vw, 29px)/1 "Gentium Book Plus", "Charis SIL", "Doulos SIL", "Noto Serif", serif;
+         color: var(--ink); transition: transform .35s cubic-bezier(.2,.9,.3,1), color .25s, text-shadow .25s }
+  .sym:hover, .sym:focus-visible, .sym.on { transform: translateY(-2px) scale(1.18); color: var(--accent); text-shadow: 0 6px 14px #9a5b2a33 }
+  .sym:focus-visible { box-shadow: 0 0 0 2px var(--accent) }
+
+  .frame-foot { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--ink); font-size: 11.5px; color: var(--ink-soft); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1 }
+  .frame-foot i { display: inline-block; width: 14px; height: 10px; margin-right: 6px; vertical-align: -1px;
+                  background: repeating-linear-gradient(135deg, #211d1840 0 1px, transparent 1px 4px), #211d1812 }
+
+  /* ---- plaque ---- */
+  .plaque { margin-top: 56px; width: 300px; min-height: 124px; padding: 16px 18px 14px; background: var(--plaque); color: var(--ink);
+            font-size: 12px; box-shadow: 0 6px 12px #0008; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: center }
+  .plaque .big { grid-row: span 3; font: 400 54px/1 "Gentium Book Plus", serif; min-width: 1.1em; text-align: center; transition: opacity .2s }
+  .plaque b { font: 600 16px/1.2 Fraunces, serif; display: block }
+  .plaque .tag { opacity: .6 }
+  .plaque .cat { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; opacity: .55 }
+
+  /* ---- gallery lighting ---- */
+  .dark { position: fixed; inset: 0; pointer-events: none; background: #000; z-index: 5; transition: opacity .6s, --r .5s;
+    -webkit-mask: radial-gradient(circle var(--r) at var(--x, 50%) var(--y, 45%), transparent 0, #0007 60%, #000b 100%);
+            mask: radial-gradient(circle var(--r) at var(--x, 50%) var(--y, 45%), transparent 0, #0007 60%, #000b 100%) }
+  .dark.wide { --r: 620px }
+  body.lights .dark { opacity: 0 }
+  .dotc { position: fixed; left: 0; top: 0; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--glow); z-index: 7;
+          pointer-events: none; box-shadow: 0 0 18px 4px #ffd27a88; transition: width .25s, height .25s, margin .25s }
+  .dotc.big { width: 22px; height: 22px; margin: -11px; background: transparent; border: 1px solid var(--glow) }
+  @media (pointer: coarse) { .dark, .dotc { display: none } }
+  @property --r { syntax: '<length>'; inherits: true; initial-value: 340px }
+
+  .hud { position: fixed; inset: auto 0 0; display: flex; justify-content: space-between; gap: 16px; padding: 18px 26px; z-index: 6;
+         font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #777; background: linear-gradient(transparent, #000a) }
+  .hud button { all: unset; color: #bbb; letter-spacing: inherit }
+  .hud button:focus-visible { outline: 1px solid var(--glow); outline-offset: 4px }
+  .bar { position: fixed; left: 26px; right: 26px; bottom: 50px; height: 1px; background: #333; z-index: 6 }
+  .bar i { position: absolute; inset: 0 auto 0 0; background: #bbb; width: 0; transition: width .4s cubic-bezier(.2,.9,.3,1) }
+
+  @media (max-width: 640px) {
+    .hud { padding: 14px 16px; font-size: 10px } .hud .hint { display: none }
+    .bar { left: 16px; right: 16px; bottom: 44px }
+    .frame { box-shadow: 0 0 0 6px #111, 0 30px 60px -20px #000 }
+    .plaque { width: 100% ; max-width: 300px }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+</style>
+</head>
+<body>
+<main>
+  <header class="intro">
+    <div>
+      <small>The International Phonetic Alphabet · Room I</small>
+      <h1>Pulmonic<br><em>consonants.</em></h1>
+    </div>
+    <p>Every sound made by pushing air out from the lungs, hung by where in the mouth it is made and how the air gets through.</p>
+  </header>
+
+  <section class="piece" aria-label="IPA pulmonic consonant chart">
+    <div class="lamp" aria-hidden="true"></div>
+    <div class="cone" aria-hidden="true"></div>
+    <div class="frame">
+      <div class="frame-head">
+        <h2>Consonants <span>(pulmonic)</span></h2>
+        <small>IPA · revised 2020</small>
+      </div>
+      <div class="scroll"><table id="chart"></table></div>
+      <div class="frame-foot">
+        <span>Where symbols appear in pairs, the one to the right represents a voiced consonant.</span>
+        <span><i></i>Shaded areas denote articulations judged impossible.</span>
+      </div>
+    </div>
+    <div class="plaque" id="plaque" aria-live="polite">
+      <div class="big" id="pBig">ʔ</div>
+      <span class="cat" id="pCat">On view</span>
+      <b id="pName">59 symbols, 8 manners, 11 places</b>
+      <span class="tag" id="pTag">Hover or tab to a symbol to read its label.</span>
+    </div>
+  </section>
+</main>
+
+<div class="dark" id="dark"></div>
+<div class="dotc" id="dotc"></div>
+<div class="bar"><i id="prog"></i></div>
+<div class="hud">
+  <span>IPA — Pulmonic</span>
+  <span class="hint">Move to light · press L for house lights</span>
+  <button id="lightsBtn" type="button">Lights: off</button>
+  <span id="count">— / 59</span>
+</div>
+
+<script>
+const PLACES = ['Bilabial','Labiodental','Dental','Alveolar','Postalveolar','Retroflex','Palatal','Velar','Uvular','Pharyngeal','Glottal'];
+// each cell: [span, voiceless, voiced, shade]  shade: 'b' both, 'l' left, 'r' right
+const E = [1,'','',''], X = [1,'','','b'];
+const ROWS = [
+  ['Plosive',            [[1,'p','b'], E, [3,'t','d'], [1,'ʈ','ɖ'], [1,'c','ɟ'], [1,'k','ɡ'], [1,'q','ɢ'], X, [1,'ʔ','','r']]],
+  ['Nasal',              [[1,'','m'], [1,'','ɱ'], [3,'','n'], [1,'','ɳ'], [1,'','ɲ'], [1,'','ŋ'], [1,'','ɴ'], X, X]],
+  ['Trill',              [[1,'','ʙ'], E, [3,'','r'], E, E, X, [1,'','ʀ'], E, X]],
+  ['Tap or Flap',        [E, [1,'','ⱱ'], [3,'','ɾ'], [1,'','ɽ'], E, X, E, E, X]],
+  ['Fricative',          [[1,'ɸ','β'], [1,'f','v'], [1,'θ','ð'], [1,'s','z'], [1,'ʃ','ʒ'], [1,'ʂ','ʐ'], [1,'ç','ʝ'], [1,'x','ɣ'], [1,'χ','ʁ'], [1,'ħ','ʕ'], [1,'h','ɦ']]],
+  ['Lateral fricative',  [X, X, [3,'ɬ','ɮ'], E, E, E, E, X, X]],
+  ['Approximant',        [E, [1,'','ʋ'], [3,'','ɹ'], [1,'','ɻ'], [1,'','j'], [1,'','ɰ'], E, E, E]],
+  ['Lateral approximant',[X, X, [3,'','l'], [1,'','ɭ'], [1,'','ʎ'], [1,'','ʟ'], E, X, X]],
+];
+
+const $ = s => document.querySelector(s);
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let html = '<thead><tr><th scope="col"></th>' + PLACES.map((p, i) => `<th scope="col" data-c="${i}">${p}</th>`).join('') + '</tr></thead><tbody>';
+const SYMS = [];
+ROWS.forEach(([manner, cells], r) => {
+  html += `<tr><th scope="row" data-r="${r}">${manner}</th>`;
+  let col = 0;
+  for (const [span, vl, vd, sh] of cells) {
+    const place = span === 3 ? 'Alveolar' : PLACES[col];
+    const cols = Array.from({length: span}, (_, k) => col + k).join(' ');
+    const sym = (ch, voice) => {
+      if (!ch) return '<span></span>';
+      const i = SYMS.push({ ch, name: `${voice} ${place} ${manner}`.toLowerCase(), manner, place, span, voice, r, cols }) - 1;
+      return `<span class="sym" tabindex="0" data-i="${i}" aria-label="${esc(SYMS[i].name)}">${ch}</span>`;
+    };
+    const cls = sh ? ` class="sh-${sh}"` : '';
+    html += `<td colspan="${span}"${cls}><div class="pair">${sym(vl, 'Voiceless')}${sym(vd, 'Voiced')}</div></td>`;
+    col += span;
+  }
+  html += '</tr>';
+});
+$('#chart').innerHTML = html + '</tbody>';
+
+// ---- plaque + headers ----
+const total = SYMS.length;
+const pad = n => String(n).padStart(2, '0');
+let current = null;
+function show(i) {
+  document.querySelectorAll('.on').forEach(el => el.classList.remove('on'));
+  if (i == null) { current = null; $('#count').textContent = `— / ${total}`; $('#dotc').classList.remove('big'); return; }
+  const s = SYMS[i]; current = i;
+  document.querySelector(`.sym[data-i="${i}"]`).classList.add('on');
+  document.querySelector(`tbody th[data-r="${s.r}"]`).classList.add('on');
+  s.cols.split(' ').forEach(c => document.querySelector(`thead th[data-c="${c}"]`).classList.add('on'));
+  $('#pBig').textContent = s.ch;
+  $('#pCat').textContent = `No. ${pad(i + 1)}`;
+  $('#pName').textContent = s.name.replace(/^./, c => c.toUpperCase());
+  $('#pTag').textContent = `${s.voice}, ${s.span === 3 ? 'dental / alveolar / postalveolar' : s.place.toLowerCase()} · ${s.manner.toLowerCase()}`;
+  $('#count').textContent = `Symbol ${pad(i + 1)} / ${total}`;
+  $('#prog').style.width = ((i + 1) / total * 100) + '%';
+  $('#dotc').classList.add('big');
+}
+document.querySelectorAll('.sym').forEach(el => {
+  const i = +el.dataset.i;
+  el.addEventListener('pointerenter', () => show(i));
+  el.addEventListener('focus', () => show(i));
+});
+$('#chart').addEventListener('pointerleave', () => show(null));
+
+// ---- spotlight cursor ----
+const dark = $('#dark'), dot = $('#dotc');
+let mx = innerWidth / 2, my = innerHeight * .45, px = mx, py = my;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY });
+$('.frame').addEventListener('pointerenter', () => dark.classList.add('wide'));
+$('.frame').addEventListener('pointerleave', () => dark.classList.remove('wide'));
+
+const toggleLights = () => {
+  const on = document.body.classList.toggle('lights');
+  $('#lightsBtn').textContent = `Lights: ${on ? 'on' : 'off'}`;
+};
+$('#lightsBtn').addEventListener('click', toggleLights);
+addEventListener('keydown', e => {
+  if (e.key === 'l' || e.key === 'L') toggleLights();
+  if (e.key === 'Escape') { document.activeElement.blur(); show(null); }
+  if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && current != null) {
+    const n = (current + (e.key === 'ArrowRight' ? 1 : total - 1)) % total;
+    document.querySelector(`.sym[data-i="${n}"]`).focus();
+  }
+});
+
+(function tick() {
+  px += (mx - px) * .2; py += (my - py) * .2;
+  dark.style.setProperty('--x', px + 'px'); dark.style.setProperty('--y', py + 'px');
+  dot.style.transform = `translate(${px}px,${py}px)`;
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
