@@ -6,172 +6,169 @@
 <title>IPA · Pulmonic Consonants</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,600;1,9..144,300&family=Gentium+Book+Plus:wght@400;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600..900&family=Instrument+Sans:wght@400..700&family=Charis+SIL:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --wall: #1d1915;
-    --wall-hi: #2a241d;
-    --floor: #0d0b09;
-    --paper: #f3efe6;
-    --paper-2: #ebe5d8;
-    --ink: #211d18;
-    --ink-soft: #211d1899;
-    --rule: #211d1826;
-    --plaque: #d9d2c3;
-    --text: #eee;
-    --muted: #888;
-    --glow: #ffe9b0;
-    --accent: #9a5b2a;
+    --bone: #f0ede6; --ink: #121212; --mute: #7c7a74; --line: #121212; --soft: #12121222;
+    --disp: 'Big Shoulders Display', Impact, sans-serif;
+    --ui: 'Instrument Sans', system-ui, sans-serif;
+    --ipa: 'Charis SIL', 'Doulos SIL', 'Noto Serif', serif;
+    --gut: 28px; --hd: 64px; --ft: 54px;
+    --hatch: repeating-linear-gradient(135deg, #12121238 0 1.5px, transparent 1.5px 7px);
   }
-  * { box-sizing: border-box; margin: 0 }
-  html, body { min-height: 100%; background: #000 }
-  body {
-    font: 14px/1.5 Inter, system-ui, sans-serif; color: var(--text);
-    background:
-      radial-gradient(ellipse 60% 45% at 50% 38%, #3a3127 0%, transparent 70%),
-      linear-gradient(to bottom, transparent 0 86%, #0006 86%, var(--floor) 100%),
-      repeating-linear-gradient(90deg, #ffffff03 0 2px, transparent 2px 7px),
-      linear-gradient(var(--wall-hi), var(--wall));
-    background-attachment: fixed;
-    overflow-x: hidden;
-  }
-  @media (pointer: fine) { body, body * { cursor: none } }
+  * { box-sizing: border-box; margin: 0; padding: 0 }
+  html { background: var(--bone) }
+  body { background: var(--bone); color: var(--ink); font: 14px/1.45 var(--ui); -webkit-font-smoothing: antialiased; overflow-x: hidden }
+  a { color: inherit; text-decoration: none }
+  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer }
+  ::selection { background: var(--ink); color: var(--bone) }
+  :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px }
 
-  main { position: relative; min-height: 100vh; padding: clamp(28px, 5vh, 56px) 16px 120px;
-         display: flex; flex-direction: column; align-items: center }
+  /* ---- header ---- */
+  .hd { height: var(--hd); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--gut); font-size: 13px; font-weight: 500 }
+  .hd .nm { font: 900 26px/1 var(--disp); text-transform: uppercase; letter-spacing: .005em }
+  .hd .mid { justify-self: center; display: flex; gap: 18px; color: var(--mute) }
+  .hd .mid b { color: var(--ink); font-weight: 500 }
+  .hd .dot { width: 7px; height: 7px; border-radius: 50%; background: #2fbf71; display: inline-block; margin-right: 7px; box-shadow: 0 0 0 3px #2fbf7133; vertical-align: 1px }
+  .hd nav { justify-self: end; display: flex; gap: 6px }
+  .pill { padding: 7px 13px; border: 1.5px solid var(--ink); border-radius: 99px; transition: background .2s, color .2s; white-space: nowrap }
+  .pill:hover, .pill[aria-pressed="true"] { background: var(--ink); color: var(--bone) }
 
-  /* ---- intro ---- */
-  .intro { width: min(1180px, 100%); display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; margin-bottom: clamp(40px, 7vh, 80px) }
-  .intro small { display: block; margin-bottom: 18px; letter-spacing: .2em; text-transform: uppercase; font-size: 11px; color: var(--muted) }
-  .intro h1 { font: 300 clamp(40px, 5.4vw, 84px)/.95 Fraunces, serif; letter-spacing: -.02em }
-  .intro h1 em { font-weight: 600; font-style: normal }
-  .intro p { max-width: 34ch; color: #bbb; font-size: 15px }
+  /* ---- marquee band ---- */
+  .band { height: clamp(96px, 15vh, 150px); position: relative; overflow: hidden; border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line); display: flex; align-items: center }
+  .track { display: flex; align-items: center; white-space: nowrap; will-change: transform; height: 100% }
+  .seq { display: flex; align-items: center; flex: none; height: 100% }
+  .it { --fs: clamp(80px, 13vh, 132px); display: flex; align-items: center; gap: .14em; padding-right: .26em; height: 100%;
+        font: 900 var(--fs)/.8 var(--disp); text-transform: uppercase; letter-spacing: -.005em; transition: opacity .3s, color .25s, -webkit-text-stroke-color .25s; cursor: pointer }
+  .it:nth-child(even) { color: transparent; -webkit-text-stroke: 1.5px var(--ink) }
+  .it .nm { display: block; padding-top: .06em }
+  .it sup { font: 600 13px/1 var(--ui); align-self: flex-start; margin-top: calc(var(--fs) * .2); color: var(--ink); -webkit-text-stroke: 0; opacity: .8 }
+  .it .th { flex: none; display: grid; place-items: center; height: calc(var(--fs) * .56); aspect-ratio: 1.55; border-radius: 999px; margin-left: .1em;
+            background: var(--tint); color: var(--ink); -webkit-text-stroke: 0; font: 400 calc(var(--fs) * .4)/1 var(--ipa); text-transform: none; transition: transform .5s cubic-bezier(.3,1.4,.5,1) }
+  .band.hov .it { opacity: .3 }
+  .band.hov .it.on { opacity: 1; color: var(--tint); -webkit-text-stroke-color: var(--tint) }
+  .band .it.on .th { transform: scale(1.12) rotate(-4deg) }
 
-  /* ---- the hung piece ---- */
-  .piece { position: relative; width: min(1180px, 100%); display: flex; flex-direction: column; align-items: center }
-  .lamp { width: 180px; height: 10px; border-radius: 0 0 6px 6px; margin-bottom: 26px;
-          background: linear-gradient(#3b342b, #15120f); box-shadow: 0 6px 18px -2px #ffd27a55, inset 0 -2px 0 #ffd27a66 }
-  .cone { position: absolute; top: -30px; left: 50%; width: 120%; height: 120%; transform: translateX(-50%); pointer-events: none;
-          background: radial-gradient(ellipse 45% 60% at 50% 30%, #fff6e055, transparent 70%); mix-blend-mode: soft-light }
-  .piece, .frame, .scroll { min-width: 0; max-width: 100% }
-  .frame { position: relative; width: 100%; padding: clamp(14px, 2.2vw, 30px); background: var(--paper);
-           box-shadow: 0 0 0 10px #111, 0 0 0 11px #2b2620, 0 40px 80px -20px #000, 0 70px 120px -40px #000;
-           color: var(--ink) }
-  .frame::after { /* paper grain */ content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .5;
-           background: radial-gradient(ellipse at 30% 20%, #fff8 0, transparent 60%), radial-gradient(ellipse at 80% 90%, #c9bfa955 0, transparent 60%) }
-  .frame-head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 0 2px 14px; border-bottom: 1px solid var(--ink) }
-  .frame-head h2 { font: 600 clamp(16px, 1.6vw, 20px)/1.1 Fraunces, serif; letter-spacing: .01em }
-  .frame-head h2 span { font-weight: 300; font-style: italic }
-  .frame-head small { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-soft); white-space: nowrap }
+  /* ---- chart ---- */
+  .chart { padding: 34px var(--gut) 40px }
+  .chart-hd { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 18px }
+  .chart-hd h1 { font: 800 clamp(40px, 5.4vw, 84px)/.86 var(--disp); text-transform: uppercase; letter-spacing: -.005em }
+  .chart-hd h1 span { color: transparent; -webkit-text-stroke: 1.5px var(--ink) }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; font-weight: 500; color: var(--mute) }
+  .legend i { display: inline-block; width: 22px; height: 12px; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--hatch); vertical-align: -2px; margin-right: 6px }
 
-  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; position: relative; z-index: 1 }
-  table { width: 100%; min-width: 900px; border-collapse: collapse; table-layout: fixed }
-  th, td { border: 1px solid var(--rule); height: clamp(44px, 5.2vw, 58px); text-align: center; padding: 0 }
-  tr > :first-child { border-left: 0 } tr > :last-child { border-right: 0 }
-  thead th { border-top: 0; height: auto; padding: 14px 2px 10px; font: 500 9.5px/1.2 Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); vertical-align: bottom; transition: color .25s }
-  tbody th { text-align: left; padding: 0 10px 0 2px; font: 300 italic 15px/1.1 Fraunces, serif; color: var(--ink); transition: color .25s }
-  thead th:first-child { width: 132px }
-  tbody tr:last-child > * { border-bottom: 0 }
-  th.on { color: var(--accent) }
-
-  td { position: relative }
-  td .pair { display: grid; grid-template-columns: 1fr 1fr; height: 100%; align-items: center; max-width: 8.5em; margin: 0 auto; position: relative; z-index: 1 }
-  td.sh-b, td.sh-l::before, td.sh-r::before { background:
-      repeating-linear-gradient(135deg, #211d1830 0 1px, transparent 1px 6px), #211d1812 }
+  .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line) }
+  table { width: 100%; min-width: 980px; border-collapse: collapse; table-layout: fixed }
+  th, td { text-align: center; border-left: 1px solid var(--soft) }
+  tr > :first-child { border-left: 0 }
+  thead th { padding: 14px 4px 12px; font: 600 10.5px/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); border-bottom: 1.5px solid var(--line); transition: color .2s }
+  thead th:first-child { width: 190px }
+  tbody tr { border-bottom: 1.5px solid var(--line) } tbody tr:last-child { border-bottom: 0 }
+  tbody th { text-align: left; padding: 0 12px 0 0; font: 800 clamp(22px, 2vw, 28px)/.9 var(--disp); text-transform: uppercase; letter-spacing: .005em; transition: color .2s, -webkit-text-stroke-color .2s }
+  tbody th sup { font: 600 10px/1 var(--ui); -webkit-text-stroke: 0; color: var(--ink); opacity: .7; margin-left: 4px; vertical-align: top }
+  td { height: 68px; position: relative; padding: 0 }
+  td.sh-b, td.sh-l::before, td.sh-r::before { background: var(--hatch) }
   td.sh-l::before, td.sh-r::before { content: ""; position: absolute; top: 0; bottom: 0; width: 50% }
   td.sh-l::before { left: 0 } td.sh-r::before { right: 0 }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; height: 100%; align-items: center; max-width: 9em; margin: 0 auto; position: relative; z-index: 1 }
 
-  .sym { display: inline-block; justify-self: center; min-width: 1.4em; padding: 2px 0; border-radius: 3px; outline: none;
-         font: 400 clamp(22px, 2.3vw, 29px)/1 "Gentium Book Plus", "Charis SIL", "Doulos SIL", "Noto Serif", serif;
-         color: var(--ink); transition: transform .35s cubic-bezier(.2,.9,.3,1), color .25s, text-shadow .25s }
-  .sym:hover, .sym:focus-visible, .sym.on { transform: translateY(-2px) scale(1.18); color: var(--accent); text-shadow: 0 6px 14px #9a5b2a33 }
-  .sym:focus-visible { box-shadow: 0 0 0 2px var(--accent) }
+  .sym { justify-self: center; display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 999px;
+         font: 400 clamp(26px, 2.4vw, 34px)/1 var(--ipa); transition: opacity .25s, background .2s, transform .4s cubic-bezier(.3,1.4,.5,1) }
+  .sym:hover, .sym.on { background: var(--tint); transform: scale(1.12) rotate(-4deg) }
+  .sym.copied { background: var(--ink); color: var(--bone) }
 
-  .frame-foot { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--ink); font-size: 11.5px; color: var(--ink-soft); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; position: relative; z-index: 1 }
-  .frame-foot i { display: inline-block; width: 14px; height: 10px; margin-right: 6px; vertical-align: -1px;
-                  background: repeating-linear-gradient(135deg, #211d1840 0 1px, transparent 1px 4px), #211d1812 }
+  table.hov .sym:not(.near) { opacity: .28 }
+  table.f-vl .sym[data-v="1"], table.f-vd .sym[data-v="0"] { opacity: .12 }
+  th.on { color: var(--ink) !important }
+  tbody th.on { color: var(--tint) !important; -webkit-text-stroke-color: var(--tint) !important }
+  thead th.on { box-shadow: inset 0 -4px 0 var(--tint) }
 
-  /* ---- plaque ---- */
-  .plaque { margin-top: 56px; width: 300px; min-height: 124px; padding: 16px 18px 14px; background: var(--plaque); color: var(--ink);
-            font-size: 12px; box-shadow: 0 6px 12px #0008; display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: center }
-  .plaque .big { grid-row: span 3; font: 400 54px/1 "Gentium Book Plus", serif; min-width: 1.1em; text-align: center; transition: opacity .2s }
-  .plaque b { font: 600 16px/1.2 Fraunces, serif; display: block }
-  .plaque .tag { opacity: .6 }
-  .plaque .cat { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; opacity: .55 }
+  /* ---- status strip ---- */
+  .strip { position: sticky; bottom: 0; z-index: 30; height: var(--ft); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 var(--gut);
+           font-size: 12.5px; font-weight: 500; background: var(--bone); border-top: 1.5px solid var(--line) }
+  .strip .now { justify-self: center; display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; min-width: 0 }
+  .strip .now b { font: 400 22px/1 var(--ipa); display: grid; place-items: center; min-width: 38px; height: 28px; padding: 0 8px; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--tint, transparent) }
+  .strip .now span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+  .strip .r { justify-self: end; color: var(--mute) }
+  .strip .l { color: var(--mute) }
 
-  /* ---- gallery lighting ---- */
-  .dark { position: fixed; inset: 0; pointer-events: none; background: #000; z-index: 5; transition: opacity .6s, --r .5s;
-    -webkit-mask: radial-gradient(circle var(--r) at var(--x, 50%) var(--y, 45%), transparent 0, #0007 60%, #000b 100%);
-            mask: radial-gradient(circle var(--r) at var(--x, 50%) var(--y, 45%), transparent 0, #0007 60%, #000b 100%) }
-  .dark.wide { --r: 620px }
-  body.lights .dark { opacity: 0 }
-  .dotc { position: fixed; left: 0; top: 0; width: 8px; height: 8px; margin: -4px; border-radius: 50%; background: var(--glow); z-index: 7;
-          pointer-events: none; box-shadow: 0 0 18px 4px #ffd27a88; transition: width .25s, height .25s, margin .25s }
-  .dotc.big { width: 22px; height: 22px; margin: -11px; background: transparent; border: 1px solid var(--glow) }
-  @media (pointer: coarse) { .dark, .dotc { display: none } }
-  @property --r { syntax: '<length>'; inherits: true; initial-value: 340px }
+  /* ---- floating preview ---- */
+  .pv { position: fixed; left: 0; top: 0; z-index: 40; width: min(15vw, 210px); pointer-events: none; opacity: 0; transform: scale(.6); transition: opacity .25s, transform .45s cubic-bezier(.3,1.3,.5,1) }
+  .pv.on { opacity: 1; transform: scale(1) }
+  .pv .card { position: relative; aspect-ratio: 4/3; border-radius: 18px; background: var(--tint, #ddd); box-shadow: 0 30px 60px -20px #0005; display: grid; place-items: center; will-change: transform }
+  .pv .card b { font: 400 clamp(70px, 6vw, 100px)/1 var(--ipa) }
+  .pv .card small { position: absolute; left: 14px; top: 12px; font: 600 11px var(--ui); letter-spacing: .1em; text-transform: uppercase }
+  .pv .card em { position: absolute; right: 14px; top: 12px; font: 600 11px var(--ui); font-style: normal; font-variant-numeric: tabular-nums }
+  .pv .cap { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--ink); color: var(--bone); border-radius: 99px; padding: 6px 6px 6px 12px; font-size: 11.5px }
+  .pv .cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600 }
+  .pv .cap i { font-style: normal; background: var(--tint, #fff); color: var(--ink); border-radius: 99px; padding: 4px 10px; font-weight: 600; white-space: nowrap }
 
-  .hud { position: fixed; inset: auto 0 0; display: flex; justify-content: space-between; gap: 16px; padding: 18px 26px; z-index: 6;
-         font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #777; background: linear-gradient(transparent, #000a) }
-  .hud button { all: unset; color: #bbb; letter-spacing: inherit }
-  .hud button:focus-visible { outline: 1px solid var(--glow); outline-offset: 4px }
-  .bar { position: fixed; left: 26px; right: 26px; bottom: 50px; height: 1px; background: #333; z-index: 6 }
-  .bar i { position: absolute; inset: 0 auto 0 0; background: #bbb; width: 0; transition: width .4s cubic-bezier(.2,.9,.3,1) }
+  /* ---- footer ---- */
+  .foot { padding: 7vh 0 0 }
+  .foot .kick { padding: 0 var(--gut) 12px; font: 600 11px var(--ui); letter-spacing: .12em; text-transform: uppercase; display: flex; justify-content: space-between; gap: 16px }
+  .foot .band { height: clamp(110px, 20vh, 200px) }
+  .foot .band .it { --fs: clamp(100px, 17vh, 180px); cursor: default; gap: .24em; padding-right: .24em }
+  .foot .band .it:nth-child(even) { color: var(--ink); -webkit-text-stroke: 0 }
+  .star { font-size: .5em; display: inline-block; animation: spin 6s linear infinite }
+  @keyframes spin { to { transform: rotate(360deg) } }
+  .foot .base { display: flex; justify-content: space-between; gap: 20px; padding: 18px var(--gut) 22px; font-size: 12.5px; font-weight: 500; color: var(--mute) }
 
-  @media (max-width: 640px) {
-    .hud { padding: 14px 16px; font-size: 10px } .hud .hint { display: none }
-    .bar { left: 16px; right: 16px; bottom: 44px }
-    .frame { box-shadow: 0 0 0 6px #111, 0 30px 60px -20px #000 }
-    .plaque { width: 100% ; max-width: 300px }
+  @media (max-width: 899px) { .hd .mid { display: none } .hd { grid-template-columns: 1fr auto } .strip .r { display: none } .strip { grid-template-columns: 1fr auto } .strip .now { justify-self: end } }
+  @media (max-width: 699px) {
+    :root { --gut: 16px; --hd: 58px; --ft: 50px }
+    .hd .nm { font-size: 22px } .pill { padding: 5px 10px; font-size: 12px }
+    .strip .l { display: none } .strip { grid-template-columns: 1fr } .strip .now { justify-self: start }
+    .pv { display: none }
+    .foot .base { flex-direction: column }
   }
-  @media (prefers-reduced-motion: reduce) { * { transition: none !important } }
+  @media (hover: none) { .pv { display: none } }
+  @media (prefers-reduced-motion: reduce) { .star { animation: none } }
 </style>
 </head>
 <body>
-<main>
-  <header class="intro">
-    <div>
-      <small>The International Phonetic Alphabet · Room I</small>
-      <h1>Pulmonic<br><em>consonants.</em></h1>
-    </div>
-    <p>Every sound made by pushing air out from the lungs, hung by where in the mouth it is made and how the air gets through.</p>
-  </header>
+<header class="hd">
+  <a class="nm" href="#">IPA Chart</a>
+  <div class="mid"><span><b>Pulmonic consonants</b></span><span><span class="dot"></span>59 symbols · revised 2020</span></div>
+  <nav aria-label="Voicing filter">
+    <button class="pill" data-f="" aria-pressed="true">All</button>
+    <button class="pill" data-f="vl" aria-pressed="false">Voiceless</button>
+    <button class="pill" data-f="vd" aria-pressed="false">Voiced</button>
+  </nav>
+</header>
 
-  <section class="piece" aria-label="IPA pulmonic consonant chart">
-    <div class="lamp" aria-hidden="true"></div>
-    <div class="cone" aria-hidden="true"></div>
-    <div class="frame">
-      <div class="frame-head">
-        <h2>Consonants <span>(pulmonic)</span></h2>
-        <small>IPA · revised 2020</small>
-      </div>
-      <div class="scroll"><table id="chart"></table></div>
-      <div class="frame-foot">
-        <span>Where symbols appear in pairs, the one to the right represents a voiced consonant.</span>
-        <span><i></i>Shaded areas denote articulations judged impossible.</span>
-      </div>
+<div class="band" id="band" aria-hidden="true"><div class="track" id="btrack"></div></div>
+
+<main class="chart">
+  <div class="chart-hd">
+    <h1>Consonants <span>(pulmonic)</span></h1>
+    <div class="legend">
+      <span>Pairs: left voiceless · right voiced</span>
+      <span><i></i>Judged impossible</span>
     </div>
-    <div class="plaque" id="plaque" aria-live="polite">
-      <div class="big" id="pBig">ʔ</div>
-      <span class="cat" id="pCat">On view</span>
-      <b id="pName">59 symbols, 8 manners, 11 places</b>
-      <span class="tag" id="pTag">Hover or tab to a symbol to read its label.</span>
-    </div>
-  </section>
+  </div>
+  <div class="scroll"><table id="chart"></table></div>
 </main>
 
-<div class="dark" id="dark"></div>
-<div class="dotc" id="dotc"></div>
-<div class="bar"><i id="prog"></i></div>
-<div class="hud">
-  <span>IPA — Pulmonic</span>
-  <span class="hint">Move to light · press L for house lights</span>
-  <button id="lightsBtn" type="button">Lights: off</button>
-  <span id="count">— / 59</span>
+<div class="strip">
+  <span class="l">Click any symbol to copy it.</span>
+  <span class="now" aria-live="polite"><b id="nowSym">ʔ</b><span id="nowTxt">Hover a symbol to read it</span></span>
+  <span class="r">← → to step · Esc to clear</span>
+</div>
+
+<footer class="foot">
+  <div class="kick"><span>International Phonetic Alphabet</span><span>Consonants · 01 of 03</span></div>
+  <div class="band" aria-hidden="true"><div class="track" id="ftrack"></div></div>
+  <div class="base"><span>After the IPA Chart, International Phonetic Association, CC BY-SA 3.0.</span><span>Vowels and other symbols coming soon.</span></div>
+</footer>
+
+<div class="pv" id="pv" aria-hidden="true">
+  <div class="card" id="card"><small id="pvMan"></small><em id="pvNo"></em><b id="pvSym"></b></div>
+  <div class="cap"><span id="pvName"></span><i id="pvAct">Copy</i></div>
 </div>
 
 <script>
 const PLACES = ['Bilabial','Labiodental','Dental','Alveolar','Postalveolar','Retroflex','Palatal','Velar','Uvular','Pharyngeal','Glottal'];
+const TINTS = ['#ff6a3d', '#7aa7ff', '#ffc933', '#5fd39a', '#c99bff', '#ff8fc2', '#3fd0c9', '#ffa53b'];
 // each cell: [span, voiceless, voiced, shade]  shade: 'b' both, 'l' left, 'r' right
 const E = [1,'','',''], X = [1,'','','b'];
 const ROWS = [
@@ -185,82 +182,154 @@ const ROWS = [
   ['Lateral approximant',[X, X, [3,'','l'], [1,'','ɭ'], [1,'','ʎ'], [1,'','ʟ'], E, X, X]],
 ];
 
-const $ = s => document.querySelector(s);
-const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let html = '<thead><tr><th scope="col"></th>' + PLACES.map((p, i) => `<th scope="col" data-c="${i}">${p}</th>`).join('') + '</tr></thead><tbody>';
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const pad = n => String(n).padStart(2, '0');
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const cp = ch => 'U+' + ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
+
+// ---- build the table ----
 const SYMS = [];
+let html = '<thead><tr><th scope="col"></th>' + PLACES.map((p, i) => `<th scope="col" data-c="${i}">${p}</th>`).join('') + '</tr></thead><tbody>';
 ROWS.forEach(([manner, cells], r) => {
-  html += `<tr><th scope="row" data-r="${r}">${manner}</th>`;
+  html += `<tr id="row-${r}" style="--tint:${TINTS[r]}"><th scope="row" data-r="${r}">${manner}<sup>${pad(r + 1)}</sup></th>`;
   let col = 0;
   for (const [span, vl, vd, sh] of cells) {
-    const place = span === 3 ? 'Alveolar' : PLACES[col];
-    const cols = Array.from({length: span}, (_, k) => col + k).join(' ');
-    const sym = (ch, voice) => {
+    const place = span === 3 ? 'alveolar' : PLACES[col].toLowerCase();
+    const cols = Array.from({ length: span }, (_, k) => col + k);
+    const sym = (ch, v) => {
       if (!ch) return '<span></span>';
-      const i = SYMS.push({ ch, name: `${voice} ${place} ${manner}`.toLowerCase(), manner, place, span, voice, r, cols }) - 1;
-      return `<span class="sym" tabindex="0" data-i="${i}" aria-label="${esc(SYMS[i].name)}">${ch}</span>`;
+      const voice = v ? 'voiced' : 'voiceless';
+      const i = SYMS.push({ ch, v, r, cols, manner, name: `${voice} ${place} ${manner.toLowerCase()}` }) - 1;
+      return `<button class="sym" data-i="${i}" data-v="${v}" aria-label="${ch}, ${SYMS[i].name}. Copy">${ch}</button>`;
     };
-    const cls = sh ? ` class="sh-${sh}"` : '';
-    html += `<td colspan="${span}"${cls}><div class="pair">${sym(vl, 'Voiceless')}${sym(vd, 'Voiced')}</div></td>`;
+    html += `<td colspan="${span}"${sh ? ` class="sh-${sh}"` : ''}><div class="pair">${sym(vl, 0)}${sym(vd, 1)}</div></td>`;
     col += span;
   }
   html += '</tr>';
 });
-$('#chart').innerHTML = html + '</tbody>';
-
-// ---- plaque + headers ----
+const table = $('#chart');
+table.innerHTML = html + '</tbody>';
 const total = SYMS.length;
-const pad = n => String(n).padStart(2, '0');
+const symEl = i => document.querySelector(`.sym[data-i="${i}"]`);
+
+// ---- marquee bands ----
+const sample = r => SYMS.find(s => s.r === r && s.v === 1).ch;
+$('#btrack').innerHTML = `<div class="seq">${ROWS.map(([m], r) =>
+  `<span class="it" data-r="${r}" style="--tint:${TINTS[r]}"><span class="nm">${m}</span><sup>${pad(r + 1)}</sup><span class="th">${sample(r)}</span></span>`).join('')}</div>`;
+$('#ftrack').innerHTML = `<div class="seq"><span class="it"><span class="nm">International Phonetic Alphabet</span><span class="star">✺</span><span class="nm">Pulmonic consonants</span><span class="star">✺</span></span></div>`;
+
+// ---- highlight / readout ----
+const pv = $('#pv');
 let current = null;
-function show(i) {
-  document.querySelectorAll('.on').forEach(el => el.classList.remove('on'));
-  if (i == null) { current = null; $('#count').textContent = `— / ${total}`; $('#dotc').classList.remove('big'); return; }
-  const s = SYMS[i]; current = i;
-  document.querySelector(`.sym[data-i="${i}"]`).classList.add('on');
+function select(i, fromPointer) {
+  $$('.on, .near').forEach(el => el.classList.remove('on', 'near'));
+  table.classList.toggle('hov', i != null);
+  pv.classList.toggle('on', i != null && !!fromPointer);
+  if (i == null) { current = null; $('#nowSym').textContent = 'ʔ'; $('#nowTxt').textContent = 'Hover a symbol to read it'; $('.now').style.removeProperty('--tint'); return; }
+  const s = SYMS[i], tint = TINTS[s.r]; current = i;
+  symEl(i).classList.add('on');
+  SYMS.forEach((o, k) => { if (o.r === s.r || o.cols.some(c => s.cols.includes(c))) symEl(k).classList.add('near') });
   document.querySelector(`tbody th[data-r="${s.r}"]`).classList.add('on');
-  s.cols.split(' ').forEach(c => document.querySelector(`thead th[data-c="${c}"]`).classList.add('on'));
-  $('#pBig').textContent = s.ch;
-  $('#pCat').textContent = `No. ${pad(i + 1)}`;
-  $('#pName').textContent = s.name.replace(/^./, c => c.toUpperCase());
-  $('#pTag').textContent = `${s.voice}, ${s.span === 3 ? 'dental / alveolar / postalveolar' : s.place.toLowerCase()} · ${s.manner.toLowerCase()}`;
-  $('#count').textContent = `Symbol ${pad(i + 1)} / ${total}`;
-  $('#prog').style.width = ((i + 1) / total * 100) + '%';
-  $('#dotc').classList.add('big');
+  s.cols.forEach(c => document.querySelector(`thead th[data-c="${c}"]`).classList.add('on'));
+  $$('thead th.on').forEach(th => th.style.setProperty('--tint', tint));
+  const label = s.name[0].toUpperCase() + s.name.slice(1);
+  $('#nowSym').textContent = s.ch;
+  $('#nowTxt').textContent = `${label} · ${cp(s.ch)} · ${pad(i + 1)}/${total}`;
+  $('.now').style.setProperty('--tint', tint);
+  pv.style.setProperty('--tint', tint);
+  $('#pvSym').textContent = s.ch; $('#pvMan').textContent = s.manner; $('#pvNo').textContent = `${pad(i + 1)} / ${total}`;
+  $('#pvName').textContent = label; $('#pvAct').textContent = `Copy ${cp(s.ch)}`;
 }
-document.querySelectorAll('.sym').forEach(el => {
-  const i = +el.dataset.i;
-  el.addEventListener('pointerenter', () => show(i));
-  el.addEventListener('focus', () => show(i));
+
+table.addEventListener('pointerover', e => { const b = e.target.closest('.sym'); if (b && +b.dataset.i !== current) select(+b.dataset.i, e.pointerType !== 'touch') });
+table.addEventListener('pointerleave', () => { if (!table.contains(document.activeElement)) select(null) });
+table.addEventListener('focusin', e => { const b = e.target.closest('.sym'); if (b) select(+b.dataset.i, false) });
+table.addEventListener('focusout', e => { if (!table.contains(e.relatedTarget)) select(null) });
+table.addEventListener('click', async e => {
+  const b = e.target.closest('.sym'); if (!b) return;
+  const s = SYMS[+b.dataset.i];
+  try { await navigator.clipboard.writeText(s.ch) } catch { return }
+  b.classList.add('copied'); $('#pvAct').textContent = 'Copied ✓';
+  $('#nowTxt').textContent = `Copied “${s.ch}” · ${s.name}`;
+  setTimeout(() => b.classList.remove('copied'), 700);
 });
-$('#chart').addEventListener('pointerleave', () => show(null));
 
-// ---- spotlight cursor ----
-const dark = $('#dark'), dot = $('#dotc');
-let mx = innerWidth / 2, my = innerHeight * .45, px = mx, py = my;
-addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY });
-$('.frame').addEventListener('pointerenter', () => dark.classList.add('wide'));
-$('.frame').addEventListener('pointerleave', () => dark.classList.remove('wide'));
-
-const toggleLights = () => {
-  const on = document.body.classList.toggle('lights');
-  $('#lightsBtn').textContent = `Lights: ${on ? 'on' : 'off'}`;
-};
-$('#lightsBtn').addEventListener('click', toggleLights);
 addEventListener('keydown', e => {
-  if (e.key === 'l' || e.key === 'L') toggleLights();
-  if (e.key === 'Escape') { document.activeElement.blur(); show(null); }
+  if (e.key === 'Escape') { document.activeElement.blur(); select(null) }
   if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && current != null) {
-    const n = (current + (e.key === 'ArrowRight' ? 1 : total - 1)) % total;
-    document.querySelector(`.sym[data-i="${n}"]`).focus();
+    e.preventDefault();
+    symEl((current + (e.key === 'ArrowRight' ? 1 : total - 1)) % total).focus();
   }
 });
 
-(function tick() {
-  px += (mx - px) * .2; py += (my - py) * .2;
-  dark.style.setProperty('--x', px + 'px'); dark.style.setProperty('--y', py + 'px');
-  dot.style.transform = `translate(${px}px,${py}px)`;
+// ---- voicing filter ----
+$$('.hd nav .pill').forEach(btn => btn.addEventListener('click', () => {
+  $$('.hd nav .pill').forEach(b => b.setAttribute('aria-pressed', b === btn));
+  table.classList.remove('f-vl', 'f-vd');
+  if (btn.dataset.f) table.classList.add('f-' + btn.dataset.f);
+}));
+
+// ---- band hover: stop, light the manner, link to its row ----
+const band = $('#band');
+let hovBand = false;
+band.addEventListener('pointerover', e => {
+  const it = e.target.closest('.it'); hovBand = true; band.classList.add('hov');
+  $$('#band .it.on').forEach(x => x.classList.remove('on'));
+  if (it) $$(`#band .it[data-r="${it.dataset.r}"]`).forEach(x => x.classList.add('on'));
+});
+band.addEventListener('pointerleave', () => { hovBand = false; band.classList.remove('hov'); $$('#band .it.on').forEach(x => x.classList.remove('on')) });
+band.addEventListener('click', e => {
+  const it = e.target.closest('.it'); if (!it) return;
+  const row = $('#row-' + it.dataset.r);
+  row.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  const th = row.querySelector('th'); th.classList.add('on'); setTimeout(() => th.classList.remove('on'), 1400);
+});
+
+// ---- marquee engine ----
+const lanes = [];
+function makeLane(track, dir, base, stopper) {
+  track.querySelectorAll('.seq').forEach((s, k) => k && s.remove());
+  const seq = track.querySelector('.seq'), w = seq.offsetWidth || 1;
+  for (let c = 1; c < Math.ceil(innerWidth * 2 / w) + 1; c++) track.appendChild(seq.cloneNode(true));
+  const old = lanes.find(l => l.track === track);
+  return { track, dir, base, stopper, w, x: old ? old.x % old.w : -Math.random() * w, hold: 1 };
+}
+function build() {
+  const next = [makeLane($('#btrack'), 1, 1, () => hovBand), makeLane($('#ftrack'), -1, .7, () => false)];
+  lanes.length = 0; lanes.push(...next);
+}
+let vel = 0, sm = 0, lastY = scrollY;
+addEventListener('scroll', () => { vel += (scrollY - lastY) * .9; lastY = scrollY }, { passive: true });
+
+// preview follows the cursor with a little lean
+let mx = 0, my = 0, px = 0, py = 0, lean = 0;
+addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY });
+
+let t0 = performance.now();
+function tick(t) {
+  const dt = Math.min(48, t - t0) / 16.67; t0 = t;
+  vel *= Math.pow(.9, dt); sm += (vel - sm) * .12 * dt;
+  const cruise = reduce ? .3 : 1.1, boost = reduce ? 0 : Math.min(Math.abs(sm) * .045, 14);
+  const dir = sm < -1 ? -1 : 1;
+  lanes.forEach(l => {
+    l.hold += ((l.stopper() ? 0 : 1) - l.hold) * .1 * dt;
+    l.x -= l.dir * dir * (cruise + boost) * l.base * l.hold * dt;
+    l.x = ((l.x % l.w) - l.w) % l.w;
+    const skew = reduce ? 0 : Math.max(-6, Math.min(6, -sm * .02 * l.dir));
+    l.track.style.transform = `translate3d(${l.x.toFixed(2)}px,0,0) skewX(${(skew * l.hold).toFixed(2)}deg)`;
+  });
+  px += (mx - px) * .18 * dt; py += (my - py) * .18 * dt;
+  lean += (Math.max(-10, Math.min(10, (mx - px) * .06)) - lean) * .2;
+  const w = pv.offsetWidth, h = pv.offsetHeight;
+  pv.style.left = Math.min(innerWidth - w - 16, Math.max(16, px + 28)) + 'px';
+  pv.style.top = Math.min(innerHeight - h - 16 - 54, Math.max(16, py - h - 28 > 16 ? py - h - 28 : py + 28)) + 'px';
+  $('#card').style.transform = `rotate(${lean.toFixed(2)}deg)`;
   requestAnimationFrame(tick);
-})();
+}
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 120) });
+build();
+document.fonts && document.fonts.ready.then(build);
+requestAnimationFrame(tick);
 </script>
 </body>
 </html>
