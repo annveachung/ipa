@@ -9,36 +9,39 @@
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600..900&family=Instrument+Sans:wght@400..700&family=Charis+SIL:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bone: #f0ede6; --ink: #121212; --mute: #7c7a74; --line: #121212; --soft: #12121222;
+    --bone: #f0ede6; --ink: #121212; --mute: #6f6d67; --line: #121212; --soft: #12121222;
     --disp: 'Big Shoulders Display', Impact, sans-serif;
     --ui: 'Instrument Sans', system-ui, sans-serif;
-    --ipa: 'Charis SIL', 'Doulos SIL', 'Noto Serif', serif;
-    --gut: 28px; --hd: 64px; --ft: 54px;
+    --ipa: 'Charis SIL', 'Doulos SIL', 'Gentium Plus', 'Noto Serif', serif;
+    --gut: 28px; --hd: 64px;
     --hatch: repeating-linear-gradient(135deg, #12121238 0 1.5px, transparent 1.5px 7px);
   }
   * { box-sizing: border-box; margin: 0; padding: 0 }
   html { background: var(--bone) }
   body { background: var(--bone); color: var(--ink); font: 14px/1.45 var(--ui); -webkit-font-smoothing: antialiased; overflow-x: hidden }
-  a { color: inherit; text-decoration: none }
-  button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer }
+  a { color: inherit }
+  button, input { font: inherit; color: inherit; background: none; border: 0 }
+  button { cursor: pointer }
   ::selection { background: var(--ink); color: var(--bone) }
   :focus-visible { outline: 2px solid var(--ink); outline-offset: 2px }
+  kbd { font: 600 11px/1 var(--ui); padding: 2px 6px; border: 1.5px solid currentColor; border-radius: 6px }
 
   /* ---- header ---- */
   .hd { height: var(--hd); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; padding: 0 var(--gut); font-size: 13px; font-weight: 500 }
-  .hd .nm { font: 900 26px/1 var(--disp); text-transform: uppercase; letter-spacing: .005em }
+  .hd .nm { font: 900 26px/1 var(--disp); text-transform: uppercase; letter-spacing: .005em; text-decoration: none }
   .hd .mid { justify-self: center; display: flex; gap: 18px; color: var(--mute) }
   .hd .mid b { color: var(--ink); font-weight: 500 }
   .hd .dot { width: 7px; height: 7px; border-radius: 50%; background: #2fbf71; display: inline-block; margin-right: 7px; box-shadow: 0 0 0 3px #2fbf7133; vertical-align: 1px }
-  .hd nav { justify-self: end; display: flex; gap: 6px }
-  .pill { padding: 7px 13px; border: 1.5px solid var(--ink); border-radius: 99px; transition: background .2s, color .2s; white-space: nowrap }
+  .hd nav { justify-self: end; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end }
+  .hd .sep { width: 1.5px; background: var(--ink); margin: 4px 6px }
+  .pill { padding: 7px 13px; border: 1.5px solid var(--ink); border-radius: 99px; transition: background .2s, color .2s; white-space: nowrap; font-size: 13px; font-weight: 500 }
   .pill:hover, .pill[aria-pressed="true"] { background: var(--ink); color: var(--bone) }
 
   /* ---- marquee band ---- */
-  .band { height: clamp(96px, 15vh, 150px); position: relative; overflow: hidden; border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line); display: flex; align-items: center }
+  .band { height: clamp(84px, 12vh, 124px); position: relative; overflow: hidden; border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line); display: flex; align-items: center }
   .track { display: flex; align-items: center; white-space: nowrap; will-change: transform; height: 100% }
   .seq { display: flex; align-items: center; flex: none; height: 100% }
-  .it { --fs: clamp(80px, 13vh, 132px); display: flex; align-items: center; gap: .14em; padding-right: .26em; height: 100%;
+  .it { --fs: clamp(70px, 10.5vh, 110px); display: flex; align-items: center; gap: .14em; padding-right: .26em; height: 100%;
         font: 900 var(--fs)/.8 var(--disp); text-transform: uppercase; letter-spacing: -.005em; transition: opacity .3s, color .25s, -webkit-text-stroke-color .25s; cursor: pointer }
   .it:nth-child(even) { color: transparent; -webkit-text-stroke: 1.5px var(--ink) }
   .it .nm { display: block; padding-top: .06em }
@@ -50,12 +53,16 @@
   .band .it.on .th { transform: scale(1.12) rotate(-4deg) }
 
   /* ---- chart ---- */
-  .chart { padding: 34px var(--gut) 40px }
+  .chart { padding: 30px var(--gut) 28px }
   .chart-hd { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 18px }
   .chart-hd h1 { font: 800 clamp(40px, 5.4vw, 84px)/.86 var(--disp); text-transform: uppercase; letter-spacing: -.005em }
   .chart-hd h1 span { color: transparent; -webkit-text-stroke: 1.5px var(--ink) }
-  .legend { display: flex; gap: 18px; flex-wrap: wrap; font-size: 12.5px; font-weight: 500; color: var(--mute) }
-  .legend i { display: inline-block; width: 22px; height: 12px; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--hatch); vertical-align: -2px; margin-right: 6px }
+  .search { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--ink); border-radius: 99px; padding: 0 6px 0 16px; height: 42px; width: min(380px, 100%) }
+  .search input { flex: 1; min-width: 0; height: 100%; outline: none; font-size: 14px }
+  .search input::placeholder { color: var(--mute) }
+  .search output { font-size: 12px; font-weight: 600; color: var(--mute); white-space: nowrap; font-variant-numeric: tabular-nums }
+  .search kbd { color: var(--mute); margin-right: 6px }
+  .search:focus-within { box-shadow: 0 0 0 3px #12121218 }
 
   .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1.5px solid var(--line); border-bottom: 1.5px solid var(--line) }
   table { width: 100%; min-width: 980px; border-collapse: collapse; table-layout: fixed }
@@ -63,76 +70,113 @@
   tr > :first-child { border-left: 0 }
   thead th { padding: 14px 4px 12px; font: 600 10.5px/1.2 var(--ui); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); border-bottom: 1.5px solid var(--line); transition: color .2s }
   thead th:first-child { width: 190px }
-  tbody tr { border-bottom: 1.5px solid var(--line) } tbody tr:last-child { border-bottom: 0 }
-  tbody th { text-align: left; padding: 0 12px 0 0; font: 800 clamp(22px, 2vw, 28px)/.9 var(--disp); text-transform: uppercase; letter-spacing: .005em; transition: color .2s, -webkit-text-stroke-color .2s }
-  tbody th sup { font: 600 10px/1 var(--ui); -webkit-text-stroke: 0; color: var(--ink); opacity: .7; margin-left: 4px; vertical-align: top }
-  td { height: 68px; position: relative; padding: 0 }
+  tbody tr > * { border-bottom: 1.5px solid var(--line) } tbody tr:last-child > * { border-bottom: 0 }
+  tbody th { text-align: left; padding: 0 12px 0 0; font: 800 clamp(22px, 2vw, 28px)/.9 var(--disp); text-transform: uppercase; letter-spacing: .005em; transition: color .2s, opacity .25s }
+  tr > th:first-child { position: sticky; left: 0; z-index: 2; background: var(--bone); box-shadow: 1.5px 0 0 var(--soft) }
+  tbody th sup { font: 600 10px/1 var(--ui); color: var(--ink); opacity: .7; margin-left: 4px; vertical-align: top }
+  td { height: 66px; position: relative; padding: 0 }
   td.sh-b, td.sh-l::before, td.sh-r::before { background: var(--hatch) }
   td.sh-l::before, td.sh-r::before { content: ""; position: absolute; top: 0; bottom: 0; width: 50% }
   td.sh-l::before { left: 0 } td.sh-r::before { right: 0 }
   .pair { display: grid; grid-template-columns: 1fr 1fr; height: 100%; align-items: center; max-width: 9em; margin: 0 auto; position: relative; z-index: 1 }
 
   .sym { justify-self: center; display: grid; place-items: center; width: 1.5em; height: 1.5em; border-radius: 999px;
-         font: 400 clamp(26px, 2.4vw, 34px)/1 var(--ipa); transition: opacity .25s, background .2s, transform .4s cubic-bezier(.3,1.4,.5,1) }
+         font: 400 clamp(26px, 2.4vw, 34px)/1 var(--ipa); transition: opacity .25s, background .2s, box-shadow .2s, transform .4s cubic-bezier(.3,1.4,.5,1) }
   .sym:hover, .sym.on { background: var(--tint); transform: scale(1.12) rotate(-4deg) }
-  .sym.copied { background: var(--ink); color: var(--bone) }
+  .sym.sel { box-shadow: 0 0 0 1.5px var(--ink); background: var(--tint) }
+  .sym.flash { background: var(--ink); color: var(--bone) }
 
   table.hov .sym:not(.near) { opacity: .28 }
-  table.f-vl .sym[data-v="1"], table.f-vd .sym[data-v="0"] { opacity: .12 }
+  table.f-vl .sym[data-v="1"], table.f-vd .sym[data-v="0"], .sym.miss { opacity: .1 }
+  tbody th.miss { opacity: .25 }
   th.on { color: var(--ink) !important }
-  tbody th.on { color: var(--tint) !important; -webkit-text-stroke-color: var(--tint) !important }
+  tbody th.on { color: var(--tint) !important }
   thead th.on { box-shadow: inset 0 -4px 0 var(--tint) }
 
-  /* ---- status strip ---- */
-  .strip { position: sticky; bottom: 0; z-index: 30; height: var(--ft); display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; padding: 0 var(--gut);
-           font-size: 12.5px; font-weight: 500; background: var(--bone); border-top: 1.5px solid var(--line) }
-  .strip .now { justify-self: center; display: flex; align-items: center; gap: 10px; font-variant-numeric: tabular-nums; min-width: 0 }
-  .strip .now b { font: 400 22px/1 var(--ipa); display: grid; place-items: center; min-width: 38px; height: 28px; padding: 0 8px; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--tint, transparent) }
-  .strip .now span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
-  .strip .r { justify-self: end; color: var(--mute) }
-  .strip .l { color: var(--mute) }
+  .keys { display: flex; justify-content: space-between; gap: 10px 24px; flex-wrap: wrap; margin-top: 14px; font-size: 12.5px; font-weight: 500; color: var(--mute) }
+  .keys span { white-space: nowrap }
+  .keys i { display: inline-block; width: 22px; height: 12px; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--hatch); vertical-align: -2px; margin-right: 6px }
+  .keys div { display: flex; gap: 8px 18px; flex-wrap: wrap }
+
+  /* ---- dock: inspector + tray ---- */
+  .dock { position: sticky; bottom: 0; z-index: 30; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); background: var(--bone); border-top: 1.5px solid var(--line) }
+  .insp { display: grid; grid-template-columns: auto auto minmax(0, 1fr); align-items: center; gap: 14px; padding: 12px var(--gut); border-right: 1.5px solid var(--line); min-height: 78px }
+  .play { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--ink); display: grid; place-items: center; transition: background .2s, color .2s }
+  .play:hover:not(:disabled) { background: var(--ink); color: var(--bone) }
+  .play:disabled { opacity: .3; cursor: default }
+  .play svg { width: 14px; height: 14px; fill: currentColor }
+  .play.playing { background: var(--ink); color: var(--bone); animation: pulse 1s ease-in-out infinite }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 6px #12121218 } }
+  .isym { font: 400 34px/1 var(--ipa); min-width: 64px; height: 50px; padding: 0 12px; display: grid; place-items: center; border-radius: 99px; border: 1.5px solid var(--ink); background: var(--tint, transparent) }
+  .itxt { min-width: 0; display: flex; flex-direction: column; gap: 2px }
+  .itxt strong { font-weight: 600; font-size: 14px }
+  .itxt span { color: var(--mute); font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+  .itxt .ex { color: var(--ink) } .itxt .ex q { font-family: var(--ipa); quotes: none }
+  .itxt a { color: var(--mute) }
+
+  .tray { display: flex; align-items: center; gap: 8px; padding: 12px var(--gut); min-width: 0 }
+  .tray label { font: 600 11px var(--ui); letter-spacing: .12em; text-transform: uppercase; color: var(--mute) }
+  .tray input { flex: 1; min-width: 0; height: 46px; padding: 0 16px; border: 1.5px solid var(--ink); border-radius: 99px; font: 400 24px/1 var(--ipa); outline: none; background: #fff6 }
+  .tray input:focus { box-shadow: 0 0 0 3px #12121218 }
+  .tray .pill { height: 38px; display: grid; place-items: center }
+  .tray .go { background: var(--ink); color: var(--bone) }
+  .tray .go:hover { background: transparent; color: var(--ink) }
 
   /* ---- floating preview ---- */
   .pv { position: fixed; left: 0; top: 0; z-index: 40; width: min(15vw, 210px); pointer-events: none; opacity: 0; transform: scale(.6); transition: opacity .25s, transform .45s cubic-bezier(.3,1.3,.5,1) }
   .pv.on { opacity: 1; transform: scale(1) }
   .pv .card { position: relative; aspect-ratio: 4/3; border-radius: 18px; background: var(--tint, #ddd); box-shadow: 0 30px 60px -20px #0005; display: grid; place-items: center; will-change: transform }
   .pv .card b { font: 400 clamp(70px, 6vw, 100px)/1 var(--ipa) }
-  .pv .card small { position: absolute; left: 14px; top: 12px; font: 600 11px var(--ui); letter-spacing: .1em; text-transform: uppercase }
-  .pv .card em { position: absolute; right: 14px; top: 12px; font: 600 11px var(--ui); font-style: normal; font-variant-numeric: tabular-nums }
-  .pv .cap { margin-top: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px; background: var(--ink); color: var(--bone); border-radius: 99px; padding: 6px 6px 6px 12px; font-size: 11.5px }
-  .pv .cap span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600 }
-  .pv .cap i { font-style: normal; background: var(--tint, #fff); color: var(--ink); border-radius: 99px; padding: 4px 10px; font-weight: 600; white-space: nowrap }
+  .pv .card small { position: absolute; left: 12px; top: 10px; font: 600 10px var(--ui); letter-spacing: .1em; text-transform: uppercase }
+  .pv .card em { position: absolute; right: 12px; top: 10px; font: 600 10px var(--ui); font-style: normal; font-variant-numeric: tabular-nums }
+  .pv .cap { margin-top: 8px; background: var(--ink); color: var(--bone); border-radius: 14px; padding: 7px 12px; font-size: 11.5px; line-height: 1.35 }
+  .pv .cap b { display: block; font-weight: 600 }
+  .pv .cap span { opacity: .7 } .pv .cap q { font-family: var(--ipa); quotes: none }
+
+  /* ---- toast ---- */
+  .toast { position: fixed; left: 50%; bottom: 100px; z-index: 50; transform: translate(-50%, 20px); opacity: 0; pointer-events: none; background: var(--ink); color: var(--bone); padding: 9px 16px; border-radius: 99px; font-size: 13px; font-weight: 500; transition: opacity .2s, transform .3s cubic-bezier(.3,1.3,.5,1) }
+  .toast.on { opacity: 1; transform: translate(-50%, 0) }
 
   /* ---- footer ---- */
-  .foot { padding: 7vh 0 0 }
+  .foot { padding: 6vh 0 0 }
   .foot .kick { padding: 0 var(--gut) 12px; font: 600 11px var(--ui); letter-spacing: .12em; text-transform: uppercase; display: flex; justify-content: space-between; gap: 16px }
-  .foot .band { height: clamp(110px, 20vh, 200px) }
-  .foot .band .it { --fs: clamp(100px, 17vh, 180px); cursor: default; gap: .24em; padding-right: .24em }
+  .foot .band { height: clamp(100px, 18vh, 180px) }
+  .foot .band .it { --fs: clamp(90px, 15vh, 160px); cursor: default; gap: .24em; padding-right: .24em }
   .foot .band .it:nth-child(even) { color: var(--ink); -webkit-text-stroke: 0 }
   .star { font-size: .5em; display: inline-block; animation: spin 6s linear infinite }
   @keyframes spin { to { transform: rotate(360deg) } }
-  .foot .base { display: flex; justify-content: space-between; gap: 20px; padding: 18px var(--gut) 22px; font-size: 12.5px; font-weight: 500; color: var(--mute) }
+  .foot .base { display: flex; justify-content: space-between; gap: 8px 20px; flex-wrap: wrap; padding: 18px var(--gut) 22px; font-size: 12.5px; font-weight: 500; color: var(--mute) }
 
-  @media (max-width: 899px) { .hd .mid { display: none } .hd { grid-template-columns: 1fr auto } .strip .r { display: none } .strip { grid-template-columns: 1fr auto } .strip .now { justify-self: end } }
+  @media (max-width: 1099px) { .hd .mid { display: none } .hd { grid-template-columns: auto 1fr } }
+  @media (max-width: 899px) {
+    .dock { grid-template-columns: 1fr } .insp { border-right: 0; border-bottom: 1.5px solid var(--line); min-height: 0; padding: 10px var(--gut) }
+    .tray { padding: 10px var(--gut) } .tray label { display: none }
+    .keys .kb { display: none }
+  }
   @media (max-width: 699px) {
-    :root { --gut: 16px; --hd: 58px; --ft: 50px }
+    :root { --gut: 16px; --hd: auto }
+    .hd { padding: 12px var(--gut); gap: 10px; grid-template-columns: 1fr } .hd nav { justify-self: start; justify-content: flex-start }
     .hd .nm { font-size: 22px } .pill { padding: 5px 10px; font-size: 12px }
-    .strip .l { display: none } .strip { grid-template-columns: 1fr } .strip .now { justify-self: start }
+    table { min-width: 860px } thead th:first-child { width: 128px } tbody th { font-size: 19px; padding-right: 8px }
+    thead th { letter-spacing: .02em; font-size: 9.5px; overflow: hidden; text-overflow: ellipsis }
+    .isym { font-size: 26px; min-width: 50px; height: 40px } .play { width: 40px; height: 40px }
+    .tray input { height: 40px; font-size: 20px } .tray .pill { height: 34px } .tray .bk { display: none }
     .pv { display: none }
-    .foot .base { flex-direction: column }
   }
   @media (hover: none) { .pv { display: none } }
-  @media (prefers-reduced-motion: reduce) { .star { animation: none } }
+  @media (prefers-reduced-motion: reduce) { .star, .play.playing { animation: none } }
 </style>
 </head>
 <body>
 <header class="hd">
   <a class="nm" href="#">IPA Chart</a>
-  <div class="mid"><span><b>Pulmonic consonants</b></span><span><span class="dot"></span>59 symbols · revised 2020</span></div>
-  <nav aria-label="Voicing filter">
+  <div class="mid"><span><b>Pulmonic consonants</b></span><span><span class="dot"></span>59 symbols · with audio</span></div>
+  <nav aria-label="Chart options">
     <button class="pill" data-f="" aria-pressed="true">All</button>
     <button class="pill" data-f="vl" aria-pressed="false">Voiceless</button>
     <button class="pill" data-f="vd" aria-pressed="false">Voiced</button>
+    <span class="sep" aria-hidden="true"></span>
+    <button class="pill" id="soundBtn" aria-pressed="true">Sound on</button>
   </nav>
 </header>
 
@@ -141,30 +185,51 @@
 <main class="chart">
   <div class="chart-hd">
     <h1>Consonants <span>(pulmonic)</span></h1>
-    <div class="legend">
-      <span>Pairs: left voiceless · right voiced</span>
-      <span><i></i>Judged impossible</span>
-    </div>
+    <label class="search">
+      <input id="q" type="search" placeholder="Search: velar, voiced fricative, vision…" autocomplete="off" spellcheck="false" aria-label="Search symbols">
+      <output id="qn" for="q"></output><kbd>/</kbd>
+    </label>
   </div>
-  <div class="scroll"><table id="chart"></table></div>
+  <div class="scroll"><table id="chart" aria-describedby="keys"></table></div>
+  <div class="keys" id="keys">
+    <div><span>Pairs: left voiceless · right voiced</span><span><i></i>Judged impossible</span></div>
+    <div class="kb"><span>Click: hear it + add to tray</span><span><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> move</span><span><kbd>P</kbd> play</span><span><kbd>Esc</kbd> clear</span></div>
+  </div>
 </main>
 
-<div class="strip">
-  <span class="l">Click any symbol to copy it.</span>
-  <span class="now" aria-live="polite"><b id="nowSym">ʔ</b><span id="nowTxt">Hover a symbol to read it</span></span>
-  <span class="r">← → to step · Esc to clear</span>
+<div class="dock">
+  <div class="insp" id="insp" aria-live="polite">
+    <button class="play" id="play" disabled aria-label="Play sound"><svg viewBox="0 0 14 14"><path d="M2 1l11 6-11 6z"/></svg></button>
+    <b class="isym" id="iSym">ʔ</b>
+    <div class="itxt">
+      <strong id="iName">Pick a symbol</strong>
+      <span class="ex" id="iEx">Click any symbol to hear it and add it to the tray.</span>
+      <span id="iCode">Hover to preview · search to filter</span>
+    </div>
+  </div>
+  <div class="tray">
+    <label for="tray">Tray</label>
+    <input id="tray" autocomplete="off" spellcheck="false" placeholder="Build a transcription…" aria-label="Transcription tray">
+    <button class="pill bk" id="bk" aria-label="Delete last character">⌫</button>
+    <button class="pill" id="clr">Clear</button>
+    <button class="pill go" id="cpy">Copy</button>
+  </div>
 </div>
 
 <footer class="foot">
   <div class="kick"><span>International Phonetic Alphabet</span><span>Consonants · 01 of 03</span></div>
   <div class="band" aria-hidden="true"><div class="track" id="ftrack"></div></div>
-  <div class="base"><span>After the IPA Chart, International Phonetic Association, CC BY-SA 3.0.</span><span>Vowels and other symbols coming soon.</span></div>
+  <div class="base">
+    <span>Chart after the IPA Chart, International Phonetic Association, CC BY-SA 3.0.</span>
+    <span>Recordings from <a href="https://commons.wikimedia.org/wiki/Category:General_phonetics" target="_blank" rel="noopener">Wikimedia Commons</a>; each links to its source and licence.</span>
+  </div>
 </footer>
 
 <div class="pv" id="pv" aria-hidden="true">
   <div class="card" id="card"><small id="pvMan"></small><em id="pvNo"></em><b id="pvSym"></b></div>
-  <div class="cap"><span id="pvName"></span><i id="pvAct">Copy</i></div>
+  <div class="cap"><b id="pvName"></b><span id="pvEx"></span></div>
 </div>
+<div class="toast" id="toast" role="status"></div>
 
 <script>
 const PLACES = ['Bilabial','Labiodental','Dental','Alveolar','Postalveolar','Retroflex','Palatal','Velar','Uvular','Pharyngeal','Glottal'];
@@ -182,10 +247,81 @@ const ROWS = [
   ['Lateral approximant',[X, X, [3,'','l'], [1,'','ɭ'], [1,'','ʎ'], [1,'','ʟ'], E, X, X]],
 ];
 
+// Per-symbol extras, in chart order (row by row, voiceless before voiced).
+// example: [language, word, transcription, gloss]
+const EXTRA = [
+  ['p',   ['English','spin','spɪn','']],
+  ['b',   ['English','bed','bɛd','']],
+  ['t',   ['English','stop','stɒp','']],
+  ['d',   ['English','dog','dɒɡ','']],
+  ['t`',  ['Hindi','टमाटर','ʈəmaːʈər','tomato']],
+  ['d`',  ['Hindi','डर','ɖər','fear']],
+  ['c',   ['Hungarian','kutya','kucɒ','dog']],
+  ['J\\', ['Hungarian','egy','ɛɟ','one']],
+  ['k',   ['English','skip','skɪp','']],
+  ['g',   ['English','go','ɡəʊ','']],
+  ['q',   ['Arabic','قلب','qalb','heart']],
+  ['G\\', ['Persian','قاشق','ɢɒːʃoɢ','spoon']],
+  ['?',   ['English','uh-oh','ʌʔəʊ','']],
+  ['m',   ['English','man','mæn','']],
+  ['F',   ['English','comfort','ˈkʌɱfət','']],
+  ['n',   ['English','no','nəʊ','']],
+  ['n`',  ['Swedish','barn','bɑːɳ','child']],
+  ['J',   ['Spanish','año','ˈaɲo','year']],
+  ['N',   ['English','sing','sɪŋ','']],
+  ['N\\', ['Japanese','日本','ɲihoɴ','Japan']],
+  ['B\\', ['Nias','simbi','siʙi','lower jaw']],
+  ['r',   ['Spanish','perro','ˈpero','dog']],
+  ['R\\', ['German','rot','ʀoːt','red']],
+  ['',    ['Mono','vwa','ⱱa','send']],
+  ['4',   ['Spanish','pero','ˈpeɾo','but']],
+  ['r`',  ['Hindi','बड़ा','bəɽaː','big']],
+  ['p\\', ['Japanese','富士','ɸɯd͡ʑi','Fuji']],
+  ['B',   ['Spanish','lobo','ˈloβo','wolf']],
+  ['f',   ['English','fan','fæn','']],
+  ['v',   ['English','van','væn','']],
+  ['T',   ['English','thin','θɪn','']],
+  ['D',   ['English','this','ðɪs','']],
+  ['s',   ['English','see','siː','']],
+  ['z',   ['English','zoo','zuː','']],
+  ['S',   ['English','she','ʃiː','']],
+  ['Z',   ['English','vision','ˈvɪʒən','']],
+  ['s`',  ['Mandarin','上','ʂɑŋ','up']],
+  ['z`',  ['Russian','жук','ʐuk','beetle']],
+  ['C',   ['German','ich','ɪç','I']],
+  ['j\\', ['Spanish','mayo','ˈmaʝo','May']],
+  ['x',   ['German','Bach','bax','brook']],
+  ['G',   ['Spanish','lago','ˈlaɣo','lake']],
+  ['X',   ['German','Dach','daχ','roof']],
+  ['R',   ['French','rouge','ʁuʒ','red']],
+  ['X\\', ['Arabic','حب','ħubb','love']],
+  ['?\\', ['Arabic','عين','ʕajn','eye']],
+  ['h',   ['English','hat','hæt','']],
+  ['h\\', ['Czech','hora','ˈɦora','mountain']],
+  ['K',   ['Welsh','llan','ɬan','parish']],
+  ['K\\', ['Zulu','dla','ɮá','eat']],
+  ['v\\', ['Hindi','वन','ʋən','forest']],
+  ['r\\', ['English','red','ɹɛd','']],
+  ['r\\`',['Tamil','தமிழ்','t̪amiɻ','Tamil']],
+  ['j',   ['English','yes','jɛs','']],
+  ['M\\', ['Korean','의사','ɰisa','doctor']],
+  ['l',   ['English','leaf','liːf','']],
+  ['l`',  ['Swedish','Karl','kɑːɭ','Charles']],
+  ['L',   ['Italian','figlio','ˈfiʎʎo','son']],
+  ['L\\', ['Mid-Waghi','aʟaʟe','aʟaʟe','dizzy']],
+];
+// Wikimedia Commons recordings, same order (path under /wikipedia/commons/).
+const AUDIO = ["5/51/Voiceless_bilabial_plosive.ogg","2/2c/Voiced_bilabial_plosive.ogg","0/02/Voiceless_alveolar_plosive.ogg","0/01/Voiced_alveolar_plosive.ogg","b/b0/Voiceless_retroflex_stop.oga","2/27/Voiced_retroflex_stop.oga","5/5d/Voiceless_palatal_plosive.ogg","1/1d/Voiced_palatal_plosive.ogg","e/e3/Voiceless_velar_plosive.ogg","b/b4/Voiced_velar_plosive.ogg","1/19/Voiceless_uvular_plosive.ogg","b/b6/Voiced_uvular_stop.oga","4/4d/Glottal_stop.ogg","a/a9/Bilabial_nasal.ogg","1/18/Labiodental_nasal.ogg","2/29/Alveolar_nasal.ogg","a/af/Retroflex_nasal.ogg","4/46/Palatal_nasal.ogg","3/39/Velar_nasal.ogg","3/3e/Uvular_nasal.ogg","e/e7/Bilabial_trill.ogg","c/ce/Alveolar_trill.ogg","c/cb/Uvular_trill.ogg","2/2c/Labiodental_flap.ogg","a/a0/Alveolar_tap.ogg","8/87/Retroflex_flap.ogg","4/41/Voiceless_bilabial_fricative.ogg","3/37/Voiced_bilabial_fricative.ogg","3/33/Voiceless_labiodental_fricative.ogg","8/85/Voiced_labiodental_fricative.ogg","8/80/Voiceless_dental_fricative.ogg","6/6a/Voiced_dental_fricative.ogg","a/ac/Voiceless_alveolar_sibilant.ogg","c/c0/Voiced_alveolar_sibilant.ogg","c/cc/Voiceless_palato-alveolar_sibilant.ogg","3/30/Voiced_palato-alveolar_sibilant.ogg","b/b1/Voiceless_retroflex_sibilant.ogg","7/7f/Voiced_retroflex_sibilant.ogg","a/ab/Voiceless_palatal_fricative.ogg","a/ac/Voiced_palatal_fricative.ogg","0/0f/Voiceless_velar_fricative.ogg","4/47/Voiced_velar_fricative.ogg","c/c8/Voiceless_uvular_fricative.ogg","a/af/Voiced_uvular_fricative.ogg","b/b2/Voiceless_pharyngeal_fricative.ogg","c/cd/Voiced_pharyngeal_fricative.ogg","d/da/Voiceless_glottal_fricative.ogg","e/e2/Voiced_glottal_fricative.ogg","e/ea/Voiceless_alveolar_lateral_fricative.ogg","6/6f/Voiced_alveolar_lateral_fricative.ogg","e/ee/Labiodental_approximant.ogg","1/1f/Alveolar_approximant.ogg","d/d2/Retroflex_approximant.ogg","e/e8/Palatal_approximant.ogg","6/68/PR-velar-approximant.ogg","b/bc/Alveolar_lateral_approximant.ogg","d/d1/Retroflex_lateral_approximant.ogg","d/d9/Palatal_lateral_approximant.ogg","d/d3/Velar_lateral_approximant.ogg"];
+const COMMONS = 'https://upload.wikimedia.org/wikipedia/commons/';
+const mp3 = p => `${COMMONS}transcoded/${p}/${p.split('/')[2]}.mp3`;
+const source = p => `https://commons.wikimedia.org/wiki/File:${p.split('/')[2]}`;
+
 const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
 const pad = n => String(n).padStart(2, '0');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const cp = ch => 'U+' + ch.codePointAt(0).toString(16).toUpperCase().padStart(4, '0');
+const store = { get(k) { try { return localStorage.getItem(k) } catch { return null } }, set(k, v) { try { localStorage.setItem(k, v) } catch {} } };
 
 // ---- build the table ----
 const SYMS = [];
@@ -198,9 +334,11 @@ ROWS.forEach(([manner, cells], r) => {
     const cols = Array.from({ length: span }, (_, k) => col + k);
     const sym = (ch, v) => {
       if (!ch) return '<span></span>';
-      const voice = v ? 'voiced' : 'voiceless';
-      const i = SYMS.push({ ch, v, r, cols, manner, name: `${voice} ${place} ${manner.toLowerCase()}` }) - 1;
-      return `<button class="sym" data-i="${i}" data-v="${v}" aria-label="${ch}, ${SYMS[i].name}. Copy">${ch}</button>`;
+      const i = SYMS.length, [xs, ex] = EXTRA[i];
+      const s = { i, ch, v, r, cols, manner, place, xs, ex, audio: AUDIO[i], name: `${v ? 'voiced' : 'voiceless'} ${place} ${manner.toLowerCase()}` };
+      s.hay = [s.name, span === 3 ? 'dental postalveolar' : '', ex.join(' ')].join(' ').toLowerCase();
+      SYMS.push(s);
+      return `<button class="sym" data-i="${i}" data-v="${v}" aria-label="${esc(ch)}: ${s.name}">${ch}</button>`;
     };
     html += `<td colspan="${span}"${sh ? ` class="sh-${sh}"` : ''}><div class="pair">${sym(vl, 0)}${sym(vd, 1)}</div></td>`;
     col += span;
@@ -210,7 +348,10 @@ ROWS.forEach(([manner, cells], r) => {
 const table = $('#chart');
 table.innerHTML = html + '</tbody>';
 const total = SYMS.length;
-const symEl = i => document.querySelector(`.sym[data-i="${i}"]`);
+const symEl = i => table.querySelector(`.sym[data-i="${i}"]`);
+const cap = s => s[0].toUpperCase() + s.slice(1);
+const exText = ([lang, word, ipa, gloss]) => `${lang} ${word}${word !== ipa ? ` [${ipa}]` : ''}${gloss ? ` ‘${gloss}’` : ''}`;
+const exHTML = ([lang, word, ipa, gloss]) => `e.g. ${esc(lang)} <b>${esc(word)}</b>${word !== ipa ? ` <q>[${esc(ipa)}]</q>` : ''}${gloss ? ` ‘${esc(gloss)}’` : ''}`;
 
 // ---- marquee bands ----
 const sample = r => SYMS.find(s => s.r === r && s.v === 1).ch;
@@ -218,53 +359,158 @@ $('#btrack').innerHTML = `<div class="seq">${ROWS.map(([m], r) =>
   `<span class="it" data-r="${r}" style="--tint:${TINTS[r]}"><span class="nm">${m}</span><sup>${pad(r + 1)}</sup><span class="th">${sample(r)}</span></span>`).join('')}</div>`;
 $('#ftrack').innerHTML = `<div class="seq"><span class="it"><span class="nm">International Phonetic Alphabet</span><span class="star">✺</span><span class="nm">Pulmonic consonants</span><span class="star">✺</span></span></div>`;
 
-// ---- highlight / readout ----
+// ---- audio ----
+const audio = new Audio();
+audio.preload = 'none';
+let soundOn = store.get('ipa.sound') !== 'off';
+const soundBtn = $('#soundBtn');
+const paintSound = () => { soundBtn.setAttribute('aria-pressed', soundOn); soundBtn.textContent = soundOn ? 'Sound on' : 'Sound off' };
+paintSound();
+soundBtn.addEventListener('click', () => { soundOn = !soundOn; store.set('ipa.sound', soundOn ? 'on' : 'off'); paintSound(); if (!soundOn) audio.pause() });
+function play(i) {
+  const s = SYMS[i]; if (!s) return;
+  audio.src = mp3(s.audio);
+  audio.play().catch(() => toast('Couldn’t load the recording'));
+}
+audio.addEventListener('playing', () => $('#play').classList.add('playing'));
+['pause', 'ended', 'error'].forEach(ev => audio.addEventListener(ev, () => $('#play').classList.remove('playing')));
+$('#play').addEventListener('click', () => sel != null && play(sel));
+
+// ---- toast ----
+let tt;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('on'), 1600) }
+
+// ---- hover preview / selection / inspector ----
 const pv = $('#pv');
-let current = null;
-function select(i, fromPointer) {
-  $$('.on, .near').forEach(el => el.classList.remove('on', 'near'));
+let hover = null, sel = null;
+function highlight(i, fromPointer) {
+  $$('.sym.on, .sym.near, th.on').forEach(el => el.classList.remove('on', 'near'));
   table.classList.toggle('hov', i != null);
   pv.classList.toggle('on', i != null && !!fromPointer);
-  if (i == null) { current = null; $('#nowSym').textContent = 'ʔ'; $('#nowTxt').textContent = 'Hover a symbol to read it'; $('.now').style.removeProperty('--tint'); return; }
-  const s = SYMS[i], tint = TINTS[s.r]; current = i;
+  hover = i;
+  if (i == null) return;
+  const s = SYMS[i], tint = TINTS[s.r];
   symEl(i).classList.add('on');
-  SYMS.forEach((o, k) => { if (o.r === s.r || o.cols.some(c => s.cols.includes(c))) symEl(k).classList.add('near') });
-  document.querySelector(`tbody th[data-r="${s.r}"]`).classList.add('on');
-  s.cols.forEach(c => document.querySelector(`thead th[data-c="${c}"]`).classList.add('on'));
-  $$('thead th.on').forEach(th => th.style.setProperty('--tint', tint));
-  const label = s.name[0].toUpperCase() + s.name.slice(1);
-  $('#nowSym').textContent = s.ch;
-  $('#nowTxt').textContent = `${label} · ${cp(s.ch)} · ${pad(i + 1)}/${total}`;
-  $('.now').style.setProperty('--tint', tint);
+  SYMS.forEach(o => { if (o.r === s.r || o.cols.some(c => s.cols.includes(c))) symEl(o.i).classList.add('near') });
+  table.querySelector(`tbody th[data-r="${s.r}"]`).classList.add('on');
+  s.cols.forEach(c => { const th = table.querySelector(`thead th[data-c="${c}"]`); th.classList.add('on'); th.style.setProperty('--tint', tint) });
   pv.style.setProperty('--tint', tint);
   $('#pvSym').textContent = s.ch; $('#pvMan').textContent = s.manner; $('#pvNo').textContent = `${pad(i + 1)} / ${total}`;
-  $('#pvName').textContent = label; $('#pvAct').textContent = `Copy ${cp(s.ch)}`;
+  $('#pvName').textContent = cap(s.name); $('#pvEx').innerHTML = exHTML(s.ex);
+}
+function select(i) {
+  $$('.sym.sel').forEach(el => el.classList.remove('sel'));
+  sel = i;
+  const insp = $('#insp'), btn = $('#play');
+  if (i == null) {
+    btn.disabled = true; insp.style.removeProperty('--tint');
+    $('#iSym').textContent = 'ʔ'; $('#iName').textContent = 'Pick a symbol';
+    $('#iEx').textContent = 'Click any symbol to hear it and add it to the tray.';
+    $('#iCode').textContent = 'Hover to preview · search to filter';
+    return;
+  }
+  const s = SYMS[i];
+  symEl(i).classList.add('sel');
+  btn.disabled = false; insp.style.setProperty('--tint', TINTS[s.r]);
+  $('#iSym').textContent = s.ch;
+  $('#iName').textContent = cap(s.name);
+  $('#iEx').innerHTML = exHTML(s.ex);
+  $('#iCode').innerHTML = `${cp(s.ch)} · X-SAMPA ${s.xs ? `<b>${esc(s.xs)}</b>` : '—'} · <a href="${source(s.audio)}" target="_blank" rel="noopener">recording source ↗</a>`;
 }
 
-table.addEventListener('pointerover', e => { const b = e.target.closest('.sym'); if (b && +b.dataset.i !== current) select(+b.dataset.i, e.pointerType !== 'touch') });
-table.addEventListener('pointerleave', () => { if (!table.contains(document.activeElement)) select(null) });
-table.addEventListener('focusin', e => { const b = e.target.closest('.sym'); if (b) select(+b.dataset.i, false) });
-table.addEventListener('focusout', e => { if (!table.contains(e.relatedTarget)) select(null) });
-table.addEventListener('click', async e => {
-  const b = e.target.closest('.sym'); if (!b) return;
-  const s = SYMS[+b.dataset.i];
-  try { await navigator.clipboard.writeText(s.ch) } catch { return }
-  b.classList.add('copied'); $('#pvAct').textContent = 'Copied ✓';
-  $('#nowTxt').textContent = `Copied “${s.ch}” · ${s.name}`;
-  setTimeout(() => b.classList.remove('copied'), 700);
+// ---- tray ----
+const tray = $('#tray');
+tray.value = store.get('ipa.tray') || '';
+tray.setSelectionRange(tray.value.length, tray.value.length);
+const saveTray = () => store.set('ipa.tray', tray.value);
+tray.addEventListener('input', saveTray);
+function insert(ch) {
+  const a = tray.selectionStart ?? tray.value.length, b = tray.selectionEnd ?? a;
+  tray.setRangeText(ch, a, b, 'end'); saveTray();
+}
+$('#bk').addEventListener('click', () => {
+  const a = tray.selectionStart, b = tray.selectionEnd;
+  if (a !== b) tray.setRangeText('', a, b, 'end');
+  else if (a > 0) { const pre = [...tray.value.slice(0, a)]; pre.pop(); const head = pre.join(''); tray.value = head + tray.value.slice(a); tray.setSelectionRange(head.length, head.length) }
+  saveTray();
+});
+$('#clr').addEventListener('click', () => { tray.value = ''; saveTray(); tray.focus() });
+$('#cpy').addEventListener('click', async () => {
+  if (!tray.value) return toast('Tray is empty');
+  try { await navigator.clipboard.writeText(tray.value); toast(`Copied “${tray.value}”`) } catch { tray.select(); toast('Press ⌘C / Ctrl+C to copy') }
 });
 
+// ---- table events ----
+table.addEventListener('pointerover', e => { const b = e.target.closest('.sym'); if (b && +b.dataset.i !== hover) highlight(+b.dataset.i, e.pointerType !== 'touch') });
+table.addEventListener('pointerleave', () => highlight(table.contains(document.activeElement) ? +document.activeElement.dataset.i : null));
+table.addEventListener('focusin', e => { const b = e.target.closest('.sym'); if (b) highlight(+b.dataset.i, false) });
+table.addEventListener('focusout', e => { if (!table.contains(e.relatedTarget)) highlight(null) });
+table.addEventListener('click', e => {
+  const b = e.target.closest('.sym'); if (!b) return;
+  const i = +b.dataset.i;
+  select(i); insert(SYMS[i].ch);
+  if (soundOn) play(i);
+  b.classList.add('flash'); setTimeout(() => b.classList.remove('flash'), 220);
+});
+
+// arrow keys move through the grid; up/down go to the nearest symbol in the next row
+function neighbour(i, key) {
+  const s = SYMS[i];
+  if (key === 'ArrowRight') return (i + 1) % total;
+  if (key === 'ArrowLeft') return (i + total - 1) % total;
+  const step = key === 'ArrowDown' ? 1 : -1, r = (s.r + step + ROWS.length) % ROWS.length;
+  const x = symEl(i).getBoundingClientRect().left;
+  return SYMS.filter(o => o.r === r).reduce((best, o) => {
+    const d = Math.abs(symEl(o.i).getBoundingClientRect().left - x);
+    return d < best.d ? { i: o.i, d } : best;
+  }, { i, d: Infinity }).i;
+}
 addEventListener('keydown', e => {
-  if (e.key === 'Escape') { document.activeElement.blur(); select(null) }
-  if ((e.key === 'ArrowRight' || e.key === 'ArrowLeft') && current != null) {
+  const inField = e.target.matches('input');
+  if (e.key === '/' && !inField) { e.preventDefault(); $('#q').focus(); return }
+  if (e.key === 'Escape') {
+    if (e.target === $('#q') && $('#q').value) { $('#q').value = ''; runSearch(); return }
+    document.activeElement.blur(); highlight(null); select(null); return;
+  }
+  if (inField) return;
+  if ((e.key === 'p' || e.key === 'P') && (sel ?? hover) != null) { play(sel ?? hover); return }
+  if (e.key.startsWith('Arrow')) {
+    const from = e.target.closest?.('.sym') ? +e.target.dataset.i : (sel ?? hover);
+    if (from == null) { if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); symEl(0).focus() } return }
     e.preventDefault();
-    symEl((current + (e.key === 'ArrowRight' ? 1 : total - 1)) % total).focus();
+    const n = neighbour(from, e.key);
+    symEl(n).focus(); symEl(n).scrollIntoView({ block: 'nearest', inline: 'nearest' });
   }
 });
 
+// ---- search ----
+const q = $('#q');
+function runSearch() {
+  const raw = q.value.trim(), t = raw.toLowerCase();
+  const hit = s => {
+    if (!t) return true;
+    if (s.ch === raw || (s.xs && s.xs === raw)) return true;
+    if ([...raw].length === 1) return false;          // single characters match symbols only
+    return t.split(/\s+/).every(w => s.hay.includes(w) || s.ch === w);
+  };
+  let n = 0;
+  const rowsHit = new Set();
+  SYMS.forEach(s => { const h = hit(s); symEl(s.i).classList.toggle('miss', !h); if (h) { n++; rowsHit.add(s.r) } });
+  $$('tbody th').forEach(th => th.classList.toggle('miss', !!t && !rowsHit.has(+th.dataset.r)));
+  $('#qn').textContent = t ? `${n} match${n === 1 ? '' : 'es'}` : '';
+  return SYMS.filter(hit);
+}
+q.addEventListener('input', runSearch);
+q.addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  const first = runSearch()[0]; if (!first || !q.value.trim()) return;
+  select(first.i); insert(first.ch); if (soundOn) play(first.i);
+  toast(`Added ${first.ch} · ${first.name}`);
+});
+
 // ---- voicing filter ----
-$$('.hd nav .pill').forEach(btn => btn.addEventListener('click', () => {
-  $$('.hd nav .pill').forEach(b => b.setAttribute('aria-pressed', b === btn));
+$$('.hd nav .pill[data-f]').forEach(btn => btn.addEventListener('click', () => {
+  $$('.hd nav .pill[data-f]').forEach(b => b.setAttribute('aria-pressed', b === btn));
   table.classList.remove('f-vl', 'f-vd');
   if (btn.dataset.f) table.classList.add('f-' + btn.dataset.f);
 }));
@@ -301,7 +547,6 @@ function build() {
 let vel = 0, sm = 0, lastY = scrollY;
 addEventListener('scroll', () => { vel += (scrollY - lastY) * .9; lastY = scrollY }, { passive: true });
 
-// preview follows the cursor with a little lean
 let mx = 0, my = 0, px = 0, py = 0, lean = 0;
 addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY });
 
@@ -320,9 +565,9 @@ function tick(t) {
   });
   px += (mx - px) * .18 * dt; py += (my - py) * .18 * dt;
   lean += (Math.max(-10, Math.min(10, (mx - px) * .06)) - lean) * .2;
-  const w = pv.offsetWidth, h = pv.offsetHeight;
+  const w = pv.offsetWidth, h = pv.offsetHeight, dockTop = $('.dock').getBoundingClientRect().top;
   pv.style.left = Math.min(innerWidth - w - 16, Math.max(16, px + 28)) + 'px';
-  pv.style.top = Math.min(innerHeight - h - 16 - 54, Math.max(16, py - h - 28 > 16 ? py - h - 28 : py + 28)) + 'px';
+  pv.style.top = Math.min(dockTop - h - 12, Math.max(16, py - h - 28 > 16 ? py - h - 28 : py + 28)) + 'px';
   $('#card').style.transform = `rotate(${lean.toFixed(2)}deg)`;
   requestAnimationFrame(tick);
 }
