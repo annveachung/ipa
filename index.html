@@ -3,387 +3,429 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IPA Chart · Learn the sounds</title>
-<meta name="description" content="An interactive, educational International Phonetic Alphabet chart: every symbol, official recordings, plain-language explanations and ear training.">
+<title>IPA Chart · Hear every sound</title>
+<meta name="description" content="A colourful, interactive International Phonetic Alphabet chart: every symbol, official recordings, plain-language explanations and ear training.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Charis+SIL&display=swap&text=%20%21%22%27%28%29%2B%2C-.%2F0123456789%3A%3B%3FABCDEFGHIJKLMNOPQRSTUVWXYZ%5B%5Dabcdefghijklmnopqrstuvwxyz%7C%C3%A6%C3%A7%C3%A8%C3%A9%C3%AA%C3%AB%C3%B0%C3%B8%C4%93%C4%95%C4%9B%C4%A7%C5%8B%C5%93%C7%80%C7%81%C7%82%C7%83%C8%85%C9%90%C9%91%C9%92%C9%93%C9%94%C9%95%C9%96%C9%97%C9%98%C9%99%C9%9A%C9%9B%C9%9C%C9%9E%C9%9F%C9%A0%C9%A1%C9%A2%C9%A3%C9%A4%C9%A5%C9%A6%C9%A7%C9%A8%C9%AA%C9%AB%C9%AC%C9%AD%C9%AE%C9%AF%C9%B0%C9%B1%C9%B2%C9%B3%C9%B4%C9%B5%C9%B6%C9%B8%C9%B9%C9%BA%C9%BB%C9%BD%C9%BE%CA%80%CA%81%CA%82%CA%83%CA%84%CA%88%CA%89%CA%8A%CA%8B%CA%8C%CA%8D%CA%8E%CA%8F%CA%90%CA%91%CA%92%CA%94%CA%95%CA%98%CA%99%CA%9B%CA%9C%CA%9D%CA%9F%CA%A1%CA%A2%CA%B0%CA%B2%CA%B7%CA%BC%CB%88%CB%8C%CB%90%CB%91%CB%9E%CB%A0%CB%A1%CB%A4%CB%A5%CB%A6%CB%A7%CB%A8%CB%A9%CC%80%CC%81%CC%82%CC%83%CC%84%CC%86%CC%88%CC%8A%CC%8B%CC%8C%CC%8F%CC%98%CC%99%CC%9A%CC%9C%CC%9D%CC%9E%CC%9F%CC%A0%CC%A4%CC%A5%CC%A9%CC%AA%CC%AC%CC%AF%CC%B0%CC%B4%CC%B9%CC%BA%CC%BB%CC%BC%CC%BD%CD%9C%CD%A1%CE%B2%CE%B8%CF%87%E1%B7%84%E1%B7%85%E1%B7%88%E1%BA%BD%E2%80%93%E2%80%94%E2%80%96%E2%80%98%E2%80%99%E2%80%9C%E2%80%9D%E2%80%A6%E2%80%BF%E2%81%BF%E2%86%97%E2%86%98%E2%97%8C%E2%B1%B1%EA%9C%9B%EA%9C%9C" rel="stylesheet">
 <style>
   :root {
-    --navy: #04111f; --navy2: #0b2034; --paper: #f4f5f3; --white: #fff;
-    --grid: #4f86ff2e; --cell: 40px;
-    --cyan: #17b6f5; --green: #3ee08f; --sky: #c4e6ff; --lav: #dccbff; --blue: #4c8dff; --red: #ff7a7a;
-    --ink: #04111f; --mute: #5d6a76; --line: #04111f; --soft: #04111f1f;
-    --sans: 'Inter Tight', system-ui, sans-serif; --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --lime: #b6ff3b; --orange: #ffad0a; --pink: #ff6fdc; --lilac: #c8b4ff; --blue: #7d93ff; --cream: #f6f1e6; --black: #111; --white: #fff; --mag: #ff2fd0;
+    --ink: #111; --bg: var(--lime);
+    --sans: 'Familjen Grotesk', system-ui, sans-serif;
     --ipa: 'Charis SIL', 'Doulos SIL', 'Gentium Plus', 'Noto Serif', serif;
-    --nav: 52px; --ease: cubic-bezier(.2,.8,.2,1);
-    --hatch: repeating-linear-gradient(135deg, #04111f26 0 1px, transparent 1px 6px);
+    --ease: cubic-bezier(.2,.8,.2,1); --spring: cubic-bezier(.3,1.4,.5,1);
+    --hatch: repeating-linear-gradient(135deg, #11111140 0 1.5px, transparent 1.5px 7px);
+    --bar: 56px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0 }
-  html { scroll-behavior: smooth; scroll-padding-top: 16px }
-  body { font: 15px/1.5 var(--sans); color: var(--ink); background-color: var(--paper); -webkit-font-smoothing: antialiased; padding-bottom: var(--nav);
-         background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-         background-size: var(--cell) var(--cell); background-position: 0 0 }
+  html { scroll-behavior: smooth }
+  body { font: 16px/1.45 var(--sans); color: var(--ink); background: var(--lime); -webkit-font-smoothing: antialiased; overflow-x: hidden; padding-bottom: 96px }
   a { color: inherit }
-  button, input { font: inherit; color: inherit; background: none; border: 0; border-radius: 0 }
+  button, input { font: inherit; color: inherit; background: none; border: 0 }
   button { cursor: pointer }
-  ::selection { background: var(--green); color: var(--ink) }
-  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px }
+  ::selection { background: var(--black); color: var(--lime) }
+  :focus-visible { outline: 2.5px solid var(--black); outline-offset: 3px }
   .ipa { font-family: var(--ipa) }
-  #trail { position: fixed; inset: 0; z-index: 0; pointer-events: none }
-  main, header.top, footer { position: relative; z-index: 1 }
-  .wrap { width: min(1280px, calc(100% - 32px)); margin: 0 auto }
-
-  /* code-tag labels, as in <date> … </date> */
-  .tag { font: 500 12px/1 var(--mono); letter-spacing: .01em; display: inline-flex; gap: .6em; align-items: center; white-space: nowrap }
-  .tag i { font-style: normal; color: var(--cyan) }
-  .arrowsq { width: 40px; flex: none; display: grid; place-items: center; background: var(--blue); color: var(--navy); transition: background .2s }
-  .arrowsq svg { width: 14px; height: 14px }
-  .arrowsq:hover { background: var(--green) }
-
-  /* ---------- header ---------- */
-  header.top { background: var(--navy); color: #fff; padding-bottom: 56px }
-  .topbar { display: flex; align-items: stretch; justify-content: space-between; border-bottom: 1px solid #ffffff1f; min-height: 48px }
-  .topbar .nm { display: flex; align-items: center; padding: 0 16px; font-weight: 500; font-size: 15px }
-  .topbar .box { background: var(--paper); color: var(--ink); display: flex; align-items: center; padding: 0 36px }
-  .cta { display: flex; margin: 12px 16px 0; background: var(--paper); color: var(--ink); min-height: 44px }
-  .cta label { flex: 1; display: flex; align-items: center; gap: 10px; padding: 0 16px; position: relative }
-  .cta label svg { width: 16px; height: 16px; color: var(--mute); flex: none }
-  .cta input { flex: 1; min-width: 0; height: 44px; outline: none; font-size: 15px; text-align: center }
-  .cta input::placeholder { color: var(--ink); opacity: .8 }
-  .cta input:focus::placeholder { opacity: .35 }
-  .results { position: absolute; left: 0; right: 0; top: 100%; z-index: 30; background: var(--white); border: 1px solid var(--line); border-top: 0; max-height: 60vh; overflow: auto; display: none; text-align: left }
-  .results.on { display: block }
-  .results button { width: 100%; display: grid; grid-template-columns: 56px 1fr auto; gap: 14px; align-items: center; padding: 8px 14px 8px 8px; border-bottom: 1px solid var(--soft); text-align: left }
-  .results button:hover, .results button.on { background: var(--sky) }
-  .results .g { height: 40px; display: grid; place-items: center; background: var(--paper); font: 400 24px/1 var(--ipa) }
-  .results b { font-weight: 500; display: block } .results small { color: var(--mute); font: 400 11.5px var(--mono) }
-  .results .empty { padding: 14px; color: var(--mute) }
+  .tag { font-weight: 600; font-size: 13px; letter-spacing: .02em; display: inline-flex; gap: .5em; align-items: center }
+  .tag i { font-style: normal; display: none }
+  .pillb { text-decoration: none; display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1.5px solid var(--black); border-radius: 99px; font-weight: 600; font-size: 14px; background: var(--white); transition: background .2s, color .2s, transform .3s var(--spring) }
+  .pillb:hover { background: var(--black); color: var(--bg) }
+  .pillb.mag { background: var(--mag); color: var(--black) }
+  .pillb.mag:hover { background: var(--black); color: var(--mag) }
 
   /* ---------- hero ---------- */
-  .hero { text-align: center; padding: clamp(70px, 12vh, 140px) 16px clamp(48px, 8vh, 90px) }
-  .hero h1 { font-weight: 500; font-size: clamp(46px, 8.4vw, 132px); line-height: .9; letter-spacing: -.05em; max-width: 14ch; margin: 0 auto }
-  .hero h1 em { font-style: normal; font-family: var(--ipa); font-weight: 400; letter-spacing: -.02em }
-  .hero p { max-width: 54ch; margin: 22px auto 0; font-size: 16px; line-height: 1.45 }
-  .hero .tag { margin-bottom: 26px }
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); background: var(--cyan); max-width: 860px; margin: 44px auto 0; text-align: left }
-  .stats div { padding: 10px 14px; border-right: 1px solid #04111f30 }
-  .stats div:last-child { border: 0 }
-  .stats small { display: block; font-size: 12.5px } .stats b { font-weight: 500; font-size: 26px; letter-spacing: -.03em }
+  .hero { position: relative; min-height: 100vh; overflow: hidden; background: var(--lime); --bg: var(--lime) }
+  .hero .inner { position: relative; z-index: 2; width: min(720px, calc(100% - 32px)); margin: 0 auto; padding-top: clamp(64px, 14vh, 150px); pointer-events: none }
+  .hero .inner > * { pointer-events: auto }
+  .hero h1 { font-weight: 700; font-size: clamp(56px, 10vw, 150px); line-height: .86; letter-spacing: -.055em }
+  .hero p { margin-top: 22px; max-width: 46ch; font-size: 17px; line-height: 1.35; font-weight: 500 }
+  .hero p u { text-decoration: none; border-bottom: 1.5px dotted currentColor }
+  .hero .row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 22px }
+  .hero .stem { position: absolute; left: 50%; top: max(72vh, 600px); bottom: 0; width: 1.5px; background: var(--black); z-index: 1 }
+  .stats { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 18px }
+  .stats div { border: 1.5px solid var(--black); border-radius: 99px; padding: 5px 13px; font-weight: 600; font-size: 14px; background: var(--lime) }
+  .stats div { display: flex; gap: 6px; align-items: baseline }
+  .stats small { font: inherit; font-weight: 500 } .stats b { font-weight: 700 }
+  .hcards { position: absolute; inset: 0; z-index: 1 }
+  .hcard { position: absolute; width: clamp(130px, 12vw, 176px); aspect-ratio: 1.3; border: 1.5px solid var(--black); background: transparent; padding: 10px 12px; text-align: left;
+           display: flex; flex-direction: column; justify-content: space-between; transition: background .2s, color .2s; will-change: transform }
+  .hcard .g { font: 400 clamp(34px, 3.2vw, 48px)/1 var(--ipa) }
+  .hcard b { font-weight: 700; font-size: clamp(13px, 1.1vw, 16px); line-height: 1.02; letter-spacing: -.02em }
+  .hcard:hover { background: var(--black); color: var(--lime) }
 
   /* ---------- sections ---------- */
-  section.sec { padding: 64px 0 24px }
-  .sec-hd { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px 48px; align-items: end; margin-bottom: 22px }
-  .sec-hd h2 { font-weight: 500; font-size: clamp(36px, 5vw, 72px); line-height: .92; letter-spacing: -.045em; margin-top: 14px }
-  .sec-hd p { font-size: 15.5px; max-width: 58ch; background: var(--paper); padding: 4px 0 }
-  .panel { background: var(--white); border: 1px solid var(--line) }
-  .note { font-size: 13px; color: var(--mute); padding: 10px 14px; border-top: 1px solid var(--soft); background: var(--white) }
+  section.sec { position: relative; padding: 90px 0 70px; background: var(--bg) }
+  .wrap { width: min(1260px, calc(100% - 32px)); margin: 0 auto }
+  #consonants { --bg: var(--orange) } #vowels { --bg: var(--pink) } #other { --bg: var(--lilac) } #diacritics { --bg: var(--lime) } #prosody { --bg: var(--blue) } #practice { --bg: var(--black); color: var(--white) }
+  .sec-hd { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px 48px; align-items: end; margin-bottom: 30px }
+  .sec-hd h2 { font-weight: 700; font-size: clamp(48px, 7.4vw, 116px); line-height: .86; letter-spacing: -.055em; position: relative }
+  .sec-hd .badge { display: inline-block; vertical-align: top; margin: .2em 0 0 .3em; font: 700 14px/1 var(--sans); letter-spacing: 0; border: 1.5px solid currentColor; padding: 8px 10px; transform: rotate(-9deg); background: var(--bg) }
+  .sec-hd p { font-size: 17px; font-weight: 500; max-width: 54ch; line-height: 1.38 }
+  .sec-hd .tag { margin-bottom: 14px }
+  .note { font-size: 14px; font-weight: 500; padding: 14px 2px 0 }
   .scroll { overflow-x: auto; -webkit-overflow-scrolling: touch }
 
-  /* explore bar: learn the terms, see them on the chart */
-  .explore { display: grid; grid-template-columns: minmax(0, 1fr) 340px; border: 1px solid var(--line); border-bottom: 0; background: var(--white) }
-  .ex-tabs { display: flex; border-bottom: 1px solid var(--line) }
-  .ex-tabs button { padding: 10px 16px; font-weight: 500; border-right: 1px solid var(--line); transition: background .2s }
-  .ex-tabs button[aria-selected="true"] { background: var(--lav) }
-  .ex-tabs button:hover { background: var(--sky) }
-  .ex-tabs .lbl { margin-left: auto; padding: 0 14px; display: flex; align-items: center; color: var(--mute) }
-  .terms { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px }
-  .terms button { padding: 6px 11px; border: 1px solid var(--line); font-size: 13.5px; transition: background .15s }
-  .terms button:hover { background: var(--sky) }
-  .terms button[aria-pressed="true"] { background: var(--green) }
-  .def { border-left: 1px solid var(--line); padding: 14px 16px; background: var(--navy); color: #fff; display: flex; flex-direction: column; gap: 6px; min-height: 100% }
-  .def h3 { font-weight: 500; font-size: 22px; letter-spacing: -.02em }
-  .def p { font-size: 14px; color: #ffffffd0 }
-  .def .tag { color: #ffffff99 }
-  .def .egs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: auto; padding-top: 6px }
-  .def .egs button { min-width: 36px; height: 34px; padding: 0 8px; background: #ffffff14; font: 400 20px/1 var(--ipa); transition: background .15s }
-  .def .egs button:hover { background: var(--green); color: var(--ink) }
+  /* scroll-in animation (the "features with scroll animations" feel) */
+  .rise { opacity: 0; transform: translateY(60px) rotate(var(--rot, -3deg)); transition: opacity .8s var(--ease), transform 1s var(--spring) }
+  .rise.in { opacity: 1; transform: none }
 
-  /* symbol buttons (shared) */
-  .sy { font-family: var(--ipa); line-height: 1; display: inline-grid; place-items: center; transition: background .15s, color .15s, opacity .25s }
-  button.sy:hover, button.sy.hov { background: var(--green) }
-  button.sy.sel { background: var(--navy); color: #fff }
-  .dimmed button.sy:not(.hl) { opacity: .18 }
-  button.sy.hl { background: var(--sky) }
-  button.sy.hl:hover { background: var(--green) }
+  /* explore */
+  .explore { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 18px; margin-bottom: 22px; align-items: start }
+  .ex-tabs { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-bottom: 10px }
+  .ex-tabs button { padding: 8px 16px; border: 1.5px solid var(--black); border-radius: 99px; font-weight: 700; font-size: 15px; transition: background .2s, color .2s }
+  .ex-tabs button[aria-selected="true"] { background: var(--black); color: var(--bg) }
+  .ex-tabs button:hover { background: var(--white) }
+  .ex-tabs button[aria-selected="true"]:hover { background: var(--black) }
+  .ex-tabs .lbl { margin-left: 6px; font-weight: 600; font-size: 13px; opacity: .75 }
+  .terms { display: flex; flex-wrap: wrap; gap: 6px }
+  .terms button { padding: 6px 12px; border: 1.5px dashed var(--black); border-radius: 99px; font-weight: 600; font-size: 14px; transition: background .15s, transform .3s var(--spring) }
+  .terms button:hover { background: var(--white); transform: rotate(-3deg) }
+  .terms button[aria-pressed="true"] { background: var(--white); border-style: solid; transform: rotate(-3deg) }
+  .def { background: var(--white); border: 1.5px solid var(--black); box-shadow: 6px 6px 0 var(--black); padding: 16px 18px; transform: rotate(1.2deg); display: flex; flex-direction: column; gap: 6px; transition: transform .4s var(--spring) }
+  .def:hover { transform: none }
+  .def h3 { font-weight: 700; font-size: 28px; letter-spacing: -.035em; line-height: 1 }
+  .def p { font-size: 15px; font-weight: 500 }
+  .def .tag { opacity: .7 }
+  .def .egs { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px }
+  .def .egs button { min-width: 40px; height: 40px; padding: 0 8px; border: 1.5px solid var(--black); font: 400 22px/1 var(--ipa); transition: background .15s, color .15s }
+  .def .egs button:hover { background: var(--black); color: var(--white) }
 
-  /* pulmonic grid */
-  .pulm { --lab: 168px; display: grid; grid-template-columns: var(--lab) repeat(22, minmax(0, 1fr)); grid-template-rows: auto repeat(8, 64px); min-width: 980px; background: var(--white); border: 1px solid var(--line) }
-  .pulm .ph { background: var(--cyan); padding: 10px 2px; font-size: 12.5px; text-align: center; align-self: stretch; display: grid; place-items: center; border-right: 1px solid #04111f30; transition: background .2s }
-  .pulm .ph.corner { justify-items: start; padding-left: 14px; position: sticky; left: 0; z-index: 3 }
-  .pulm .ph.on { background: var(--lav) }
-  .pulm .rl { grid-column: 1; display: flex; align-items: center; padding: 0 14px; font-weight: 500; border-top: 1px solid var(--line); position: sticky; left: 0; z-index: 2; background: var(--white); transition: background .2s }
-  .pulm .rl.on { background: var(--lav) }
-  .pulm .pc { border-top: 1px solid var(--line); border-left: 1px solid var(--soft) }
+  /* symbol buttons */
+  .sy { font-family: var(--ipa); line-height: 1; display: inline-grid; place-items: center; transition: background .15s, color .15s, opacity .25s, transform .3s var(--spring) }
+  button.sy:hover, button.sy.hov { background: var(--black); color: var(--bg); transform: rotate(-6deg) }
+  button.sy.sel { background: var(--white); box-shadow: 0 0 0 2px var(--black) inset }
+  .dimmed button.sy:not(.hl) { opacity: .2 }
+  button.sy.hl { background: var(--white) }
+
+  /* pulmonic */
+  .pulm { --lab: 176px; display: grid; grid-template-columns: var(--lab) repeat(22, minmax(0, 1fr)); grid-template-rows: auto repeat(8, 66px); min-width: 1000px; border: 1.5px solid var(--black) }
+  .pulm .ph { padding: 10px 2px; font-weight: 700; font-size: 13.5px; text-align: center; display: grid; place-items: center; border-left: 1.5px solid var(--black); border-bottom: 1.5px solid var(--black); transition: background .2s, color .2s }
+  .pulm .ph.corner { border-left: 0; justify-items: start; padding-left: 14px; font-weight: 600; position: sticky; left: 0; z-index: 3; background: var(--bg) }
+  .pulm .ph.on, .pulm .rl.on { background: var(--black); color: var(--bg) }
+  .pulm .rl { grid-column: 1; display: flex; align-items: center; padding: 0 14px; font-weight: 700; font-size: 17px; letter-spacing: -.02em; border-top: 1.5px solid var(--black); position: sticky; left: 0; z-index: 2; background: var(--bg); transition: background .2s, color .2s }
+  .pulm .rl[data-m="0"] { border-top: 0 }
+  .pulm .pc { border-top: 1.5px solid var(--black); border-left: 1.5px solid var(--black) }
+  .pulm .pc[style*="grid-row:2"] { border-top: 0 }
   .pulm .imp { background: var(--hatch) }
-  .pulm .sy { z-index: 1; place-self: center; width: 46px; height: 46px; font-size: 30px }
+  .pulm .sy { z-index: 1; place-self: center; width: 48px; height: 48px; font-size: 31px; border-radius: 50% }
 
   /* vowels */
-  .vwrap { display: grid; grid-template-columns: minmax(0, 1fr); background: var(--white); border: 1px solid var(--line) }
-  .vow { position: relative; display: grid; grid-template-columns: 110px 1fr; grid-template-rows: 44px auto; width: min(100%, 980px); margin: 0 auto; padding: 0 30px 34px 0 }
+  .vow { position: relative; display: grid; grid-template-columns: 120px 1fr; grid-template-rows: 44px auto; width: min(100%, 1000px); margin: 0 auto; padding: 0 30px 44px 0 }
   .vow .tl { grid-column: 2; position: relative }
-  .vow .tl span, .vow .ll span { position: absolute; font: 500 12px var(--mono); white-space: nowrap; padding: 3px 7px; transition: background .2s }
+  .vow .tl span, .vow .ll span { position: absolute; font-weight: 700; font-size: 15px; white-space: nowrap; padding: 3px 10px; border: 1.5px solid transparent; border-radius: 99px; transition: background .2s, color .2s }
   .vow .tl span { transform: translateX(-50%); bottom: 6px }
   .vow .ll { position: relative }
-  .vow .ll span { right: 18px; transform: translateY(-50%) }
-  .vow .on { background: var(--lav) }
+  .vow .ll span { right: 16px; transform: translateY(-50%) }
+  .vow .on { background: var(--black); color: var(--bg) }
   .vow .plot { position: relative; aspect-ratio: 1.5; margin: 20px 0 0 }
   .vow svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible }
-  .vow svg line { stroke: var(--navy); stroke-width: 1.2; vector-effect: non-scaling-stroke }
-  .vow .dot { position: absolute; width: 8px; height: 8px; margin: -4px; background: var(--navy) }
-  .vow .sy { position: absolute; transform: translate(-50%, -50%); width: 50px; height: 50px; font-size: 32px; background: var(--white) }
-  .vow button.sy.hl { background: var(--sky) }
+  .vow svg line { stroke: var(--black); stroke-width: 1.5; vector-effect: non-scaling-stroke }
+  .vow .dot { position: absolute; width: 10px; height: 10px; margin: -5px; border-radius: 50%; background: var(--black) }
+  .vow .sy { position: absolute; transform: translate(-50%, -50%); width: 54px; height: 54px; font-size: 34px; border-radius: 50%; background: var(--bg) }
+  .vow button.sy:hover, .vow button.sy.hov { transform: translate(-50%, -50%) rotate(-6deg) scale(1.08) }
+  .vow button.sy.hl { background: var(--white) }
 
-  /* list tables (Sui blog-list style) */
-  .list { background: var(--white); border: 1px solid var(--line) }
-  .lrow { display: grid; grid-template-columns: 84px minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, .9fr) 52px; align-items: center; min-height: 56px; border-top: 1px solid var(--line); cursor: pointer; transition: background .15s; text-align: left; width: 100% }
+  /* lists */
+  .list { border: 1.5px solid var(--black) }
+  .lrow { display: grid; grid-template-columns: 84px minmax(0, 1.3fr) minmax(0, 1fr) minmax(0, .9fr) 54px; align-items: center; min-height: 58px; border-top: 1.5px solid var(--black); cursor: pointer; transition: background .15s, color .15s; text-align: left; width: 100% }
   .lrow:first-child { border-top: 0 }
   .lrow > * { padding: 0 14px }
-  .lhead { background: var(--cyan); cursor: default; min-height: 36px; font-size: 13px; border-top: 0 }
-  .lsub { display: block; padding: 8px 14px; font: 500 12px var(--mono); background: var(--paper); border-top: 1px solid var(--line) }
-  .lrow:not(.lhead):hover, .lrow.sel { background: var(--sky) }
-  .lrow.sel { background: var(--lav) }
-  .lrow .g { font: 400 30px/1 var(--ipa); text-align: center; padding: 0 }
-  .lrow .n { font-weight: 500 }
-  .lrow .m { color: var(--mute); font-size: 13.5px }
-  .lrow .e { font: 400 18px var(--ipa) }
-  .play { width: 52px; height: 100%; min-height: 56px; display: grid; place-items: center; border-left: 1px solid var(--soft); transition: background .15s }
-  .play svg { width: 12px; height: 12px }
-  .play:hover { background: var(--green) }
-  .play.on { background: var(--blue) }
-  .lhead .play { border: 0; min-height: 36px }
-  .twocol { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px }
+  .lhead { cursor: default; min-height: 40px; font-weight: 700; font-size: 14px; background: var(--black); color: var(--bg) }
+  .lsub { display: block; padding: 8px 14px; font-weight: 700; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; border-top: 1.5px solid var(--black) }
+  .lrow:not(.lhead):hover { background: var(--white) }
+  .lrow.sel { background: var(--white); box-shadow: inset 6px 0 0 var(--black) }
+  .lrow .g { font: 400 32px/1 var(--ipa); text-align: center; padding: 0 }
+  .lrow .n { font-weight: 700; letter-spacing: -.01em }
+  .lrow .m { font-weight: 500; font-size: 14px; opacity: .8 }
+  .lrow .e { font: 400 19px var(--ipa) }
+  .play { width: 54px; height: 100%; min-height: 58px; display: grid; place-items: center; border-left: 1.5px solid var(--black); transition: background .15s, color .15s }
+  .play svg { width: 13px; height: 13px }
+  .play:hover { background: var(--black); color: var(--bg) }
+  .play.on { background: var(--mag) }
+  .lhead .play { min-height: 40px; border-color: transparent }
+  .twocol { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 22px; align-items: start }
+  .tones .lrow { grid-template-columns: 66px 66px minmax(0, 1fr) 54px }
+  .tones .lrow .g + .g { border-left: 1.5px dashed var(--black) }
+  .tones .lrow .g { height: 100%; min-height: 58px }
 
   /* diacritic cards */
-  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); border-left: 1px solid var(--line); border-top: 1px solid var(--line); background: var(--white) }
-  .card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; text-align: left; transition: background .15s; min-height: 132px }
-  .card:hover { background: var(--sky) } .card.sel { background: var(--lav) }
-  .card .g { font: 400 40px/1.1 var(--ipa); height: 52px }
-  .card b { font-weight: 500; font-size: 14.5px; line-height: 1.2 }
-  .card small { font: 400 17px var(--ipa); color: var(--mute) }
-  .card .tag { color: var(--mute); margin-top: auto }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(196px, 1fr)); gap: 14px }
+  .card { border: 1.5px solid var(--black); padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; text-align: left; min-height: 150px; transform: rotate(var(--r, 0deg)); transition: background .2s, color .2s, transform .4s var(--spring), box-shadow .3s }
+  .card:nth-child(4n+1) { --r: -1.6deg } .card:nth-child(4n+2) { --r: 1.2deg } .card:nth-child(4n+3) { --r: -.6deg } .card:nth-child(4n) { --r: 1.8deg }
+  .card:hover { transform: rotate(0) translateY(-4px); background: var(--white); box-shadow: 6px 6px 0 var(--black) }
+  .card.sel { background: var(--black); color: var(--lime) }
+  .card .g { font: 400 44px/1.1 var(--ipa); height: 56px }
+  .card b { font-weight: 700; font-size: 17px; line-height: 1.05; letter-spacing: -.02em }
+  .card small { font: 400 18px var(--ipa) }
+  .card .tag { margin-top: auto; font-size: 12px; opacity: .7 }
 
-  /* tones table */
-  .tones .lrow { grid-template-columns: 64px 64px minmax(0, 1fr) 52px }
-  .tones .lrow .g + .g { border-left: 1px solid var(--soft) }
-
-  /* ---------- practice ---------- */
-  .quiz { display: grid; grid-template-columns: 300px minmax(0, 1fr); border: 1px solid var(--line); background: var(--white) }
-  .q-left { background: var(--navy); color: #fff; padding: 18px; display: flex; flex-direction: column; gap: 14px }
-  .q-left .seg { display: flex; border: 1px solid #ffffff40 }
-  .q-left .seg button { flex: 1; padding: 8px 6px; font-size: 13px; border-right: 1px solid #ffffff40 }
-  .q-left .seg button:last-child { border: 0 }
-  .q-left .seg button[aria-pressed="true"] { background: var(--lav); color: var(--ink) }
-  .bigplay { flex: 1; min-height: 160px; background: var(--blue); color: var(--navy); display: grid; place-items: center; gap: 8px; align-content: center; font-weight: 500; transition: background .2s }
-  .bigplay:hover { background: var(--green) }
-  .bigplay svg { width: 40px; height: 40px }
-  .bigplay.on { background: var(--green) }
-  .score { display: grid; grid-template-columns: 1fr 1fr 1fr; border: 1px solid #ffffff40 }
-  .score div { padding: 8px 10px; border-right: 1px solid #ffffff40 } .score div:last-child { border: 0 }
-  .score small { display: block; font: 400 11px var(--mono); color: #ffffffa0 } .score b { font-weight: 500; font-size: 22px }
-  .q-right { display: flex; flex-direction: column }
-  .q-right .qh { padding: 16px 18px; border-bottom: 1px solid var(--line) }
-  .q-right .qh h3 { font-weight: 500; font-size: 24px; letter-spacing: -.02em }
-  .q-right .qh p { color: var(--mute); font-size: 14px }
+  /* practice */
+  #practice .sec-hd .badge { background: var(--black) }
+  .quiz { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 18px }
+  .q-left { display: flex; flex-direction: column; gap: 14px }
+  .q-left .seg { display: flex; gap: 6px; flex-wrap: wrap }
+  .q-left .seg button { padding: 8px 14px; border: 1.5px solid var(--lime); border-radius: 99px; font-weight: 700; font-size: 14px; color: var(--lime); transition: background .2s, color .2s }
+  .q-left .seg button[aria-pressed="true"], .q-left .seg button:hover { background: var(--lime); color: var(--black) }
+  .bigplay { flex: 1; min-height: 200px; border-radius: 50%; aspect-ratio: 1; background: var(--mag); color: var(--black); display: grid; place-items: center; align-content: center; gap: 6px; font-weight: 700; font-size: 18px; transition: transform .4s var(--spring), background .2s }
+  .bigplay:hover { transform: rotate(-8deg) scale(1.03); background: var(--lime) }
+  .bigplay svg { width: 44px; height: 44px }
+  .bigplay.on { background: var(--lime); animation: wob 1s ease-in-out infinite }
+  @keyframes wob { 50% { transform: scale(1.05) rotate(-4deg) } }
+  .score { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px }
+  .score div { border: 1.5px solid #ffffff60; padding: 8px 12px }
+  .score small { display: block; font-size: 12px; font-weight: 600; opacity: .7 } .score b { font-weight: 700; font-size: 28px; letter-spacing: -.03em }
+  .q-right { display: flex; flex-direction: column; border: 1.5px solid var(--lime) }
+  .q-right .qh { padding: 16px 18px; border-bottom: 1.5px solid var(--lime) }
+  .q-right .qh h3 { font-weight: 700; font-size: 30px; letter-spacing: -.035em; color: var(--lime) }
+  .q-right .qh p { opacity: .75; font-size: 15px }
   .opts { display: grid; grid-template-columns: repeat(4, 1fr); flex: 1 }
-  .opt { border-right: 1px solid var(--line); padding: 18px 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 190px; transition: background .2s }
+  .opt { border-right: 1.5px solid var(--lime); padding: 18px 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 210px; transition: background .2s, color .2s }
   .opt:last-child { border-right: 0 }
-  .opt .g { font: 400 64px/1 var(--ipa) }
-  .opt small { font-size: 13px; color: var(--mute); text-align: center; min-height: 2.6em }
-  .opt:hover:not(:disabled) { background: var(--sky) }
-  .opt.right { background: var(--green) } .opt.wrong { background: var(--red) }
+  .opt .g { font: 400 68px/1 var(--ipa); transition: transform .4s var(--spring) }
+  .opt small { font-size: 14px; font-weight: 600; text-align: center; min-height: 2.6em; opacity: .8 }
+  .opt:hover:not(:disabled) { background: #ffffff14 } .opt:hover:not(:disabled) .g { transform: rotate(-8deg) scale(1.08) }
+  .opt.right { background: var(--lime); color: var(--black) } .opt.wrong { background: var(--pink); color: var(--black) }
   .opt:disabled { cursor: default }
-  .q-foot { display: flex; border-top: 1px solid var(--line); min-height: 48px }
-  .q-foot .msg { flex: 1; display: flex; align-items: center; padding: 0 18px; font-weight: 500 }
-  .q-foot button.next { padding: 0 20px; background: var(--navy); color: #fff; font-weight: 500; display: flex; align-items: center; gap: 10px }
-  .q-foot button.next:hover { background: var(--blue); color: var(--navy) }
+  .q-foot { display: flex; border-top: 1.5px solid var(--lime); min-height: 54px }
+  .q-foot .msg { flex: 1; display: flex; align-items: center; padding: 0 18px; font-weight: 600 }
+  .q-foot button.next { padding: 0 22px; background: var(--lime); color: var(--black); font-weight: 700; display: flex; align-items: center; gap: 10px; transition: background .2s }
+  .q-foot button.next:hover { background: var(--mag) }
 
-  /* ---------- footer ---------- */
-  footer { background: var(--navy); color: #ffffffd0; margin-top: 64px; padding: 34px 0 44px }
+  /* footer */
+  footer { background: var(--orange); padding: 70px 0 60px; border-top: 1.5px solid var(--black) }
   footer .wrap { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px }
-  footer h2 { color: #fff; font-weight: 500; font-size: clamp(30px, 4vw, 52px); letter-spacing: -.04em; line-height: .95 }
-  footer p { font-size: 13.5px; margin-top: 12px } footer a { color: var(--cyan) }
+  footer h2 { font-weight: 700; font-size: clamp(40px, 5.6vw, 84px); letter-spacing: -.055em; line-height: .88 }
+  footer p { font-weight: 500; margin-top: 12px; font-size: 15px } footer a { font-weight: 700 }
 
-  /* ---------- bottom nav ---------- */
-  nav.tabs { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; height: var(--nav); display: flex; background: var(--white); border-top: 1px solid var(--line) }
-  nav.tabs .items { flex: 1; display: flex; overflow-x: auto; scrollbar-width: none }
-  nav.tabs .items::-webkit-scrollbar { display: none }
-  nav.tabs .items a, nav.tabs button.trayb { flex: 1 0 auto; display: grid; place-items: center; padding: 0 18px; border-right: 1px solid var(--line); text-decoration: none; font-size: 14.5px; white-space: nowrap; transition: background .2s }
-  nav.tabs .items a:hover { background: var(--sky) }
-  nav.tabs .items a.on { background: var(--lav) }
-  nav.tabs button.trayb { background: var(--navy); color: #fff; border: 0; display: flex; gap: 8px; align-items: center; justify-content: center }
-  nav.tabs button.trayb:hover { background: var(--navy2) }
-  nav.tabs button.trayb b { background: var(--green); color: var(--ink); font: 500 12px/1 var(--mono); padding: 4px 6px }
-  nav.tabs .arrowsq { width: var(--nav) }
+  /* ---------- fixed chrome: nav box, menu, tray ---------- */
+  .navbox { position: fixed; left: 16px; bottom: 16px; z-index: 50; display: flex; align-items: stretch; background: var(--white); border: 1.5px solid var(--black); height: var(--bar) }
+  .navbox > * { display: flex; align-items: center; padding: 0 12px; border-right: 1.5px solid var(--black) }
+  .navbox > *:last-child { border-right: 0 }
+  .navbox .logo { width: var(--bar); justify-content: center; padding: 0 }
+  .navbox .logo span { width: 38px; height: 38px; border: 1.5px solid var(--black); border-radius: 50%; display: grid; place-items: center; font: 400 21px/1 var(--ipa) }
+  .navbox .word { font-weight: 700; font-size: 21px; letter-spacing: -.04em; text-decoration: none; gap: 8px }
+  .navbox .word small { font-weight: 600; font-size: 12px; letter-spacing: 0; padding: 3px 8px; border-radius: 99px; background: var(--lime); border: 1.5px solid var(--black); white-space: nowrap }
+  .navbox .pillb { padding: 4px 12px; font-size: 14px }
+  .burger { position: fixed; top: 16px; right: 16px; z-index: 55; width: 52px; height: 60px; background: var(--white); border: 1.5px solid var(--black); display: grid; place-items: center; transition: background .2s }
+  .burger i { display: block; width: 26px; height: 1.5px; background: var(--black); box-shadow: 0 -6px 0 var(--black), 0 6px 0 var(--black); transition: transform .3s, box-shadow .3s }
+  .burger[aria-expanded="true"] i { box-shadow: none; transform: rotate(45deg) }
+  .burger[aria-expanded="true"] i::after { content: ''; display: block; width: 26px; height: 1.5px; background: var(--black); transform: rotate(-90deg) }
+  .burger:hover { background: var(--lime) }
 
-  /* ---------- tray ---------- */
-  .tray { position: fixed; left: 0; right: 0; bottom: var(--nav); z-index: 45; background: var(--navy); color: #fff; transform: translateY(100%); transition: transform .35s var(--ease); border-top: 1px solid #ffffff30 }
-  .tray.on { transform: none }
-  .tray .in { display: flex; gap: 0; align-items: stretch; min-height: 64px }
-  .tray .tag { padding: 0 16px; display: flex; color: #ffffffb0 }
-  .tray input { flex: 1; min-width: 0; background: var(--paper); color: var(--ink); padding: 0 18px; font: 400 28px var(--ipa); outline: none; margin: 10px 0 }
-  .tray .btns { display: flex; padding: 10px 10px 10px 8px; gap: 6px }
-  .tray .btns button { padding: 0 14px; background: #ffffff18; font-weight: 500; transition: background .15s }
-  .tray .btns button:hover { background: var(--green); color: var(--ink) }
+  .menu { position: fixed; inset: 0; z-index: 52; background: var(--orange); display: flex; flex-direction: column; justify-content: center; padding: 80px clamp(16px, 6vw, 90px) 110px; transform: translateY(-102%); transition: transform .6s var(--ease); overflow: auto }
+  .menu.on { transform: none }
+  .menu #tabs { display: flex; flex-direction: column }
+  .menu #tabs a { text-decoration: none; font-weight: 700; font-size: clamp(40px, 7vw, 96px); line-height: .98; letter-spacing: -.055em; display: flex; align-items: baseline; gap: 18px; transition: transform .4s var(--spring), color .2s }
+  .menu #tabs a small { font-size: 15px; font-weight: 600; letter-spacing: 0 }
+  .menu #tabs a:hover { transform: translateX(16px) rotate(-1.5deg) }
+  .menu #tabs a.on::after { content: '●'; font-size: .3em; align-self: center }
 
-  /* ---------- drawer ---------- */
-  .drawer { position: fixed; top: 0; right: 0; bottom: var(--nav); z-index: 60; width: min(440px, 100%); background: var(--navy); color: #fff; transform: translateX(105%); transition: transform .4s var(--ease); display: flex; flex-direction: column }
-  .drawer.on { transform: none; box-shadow: -30px 0 60px -30px #04111f80 }
-  .dr-hd { display: flex; align-items: stretch; border-bottom: 1px solid #ffffff26; min-height: 48px }
-  .dr-hd .tag { flex: 1; min-width: 0; padding: 0 16px; color: #ffffffb0; overflow: hidden }
-  .dr-hd button { width: 48px; flex: none; display: grid; place-items: center; border-left: 1px solid #ffffff26; transition: background .15s }
-  .dr-hd button:hover { background: #ffffff18 }
-  .dr-hd svg { width: 14px; height: 14px }
-  .dr-body { overflow: auto; padding: 16px; display: flex; flex-direction: column; gap: 16px }
-  .dr-sym { position: relative; height: 200px; background-color: var(--paper); color: var(--ink); display: grid; place-items: center; font: 400 110px/1 var(--ipa);
-            background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 20px 20px }
-  .dr-sym::before { content: ''; position: absolute; left: 20px; top: 20px; width: 20px; height: 20px; background: var(--green) }
-  .dr-sym .tag { position: absolute; right: 10px; bottom: 10px; color: var(--mute) }
-  .dr-body h3 { font-weight: 500; font-size: 30px; line-height: 1; letter-spacing: -.035em }
-  .anat { border: 1px solid #ffffff30 }
-  .anat div { display: grid; grid-template-columns: 96px 1fr; border-top: 1px solid #ffffff30 }
+  .tray { position: fixed; right: 16px; bottom: 16px; z-index: 50; width: min(480px, calc(100% - 32px)); height: var(--bar); background: var(--white); border: 1.5px solid var(--black); display: flex; transition: transform .35s var(--ease) }
+  .tray .in { display: flex; flex: 1; min-width: 0 }
+  .tray .tag { padding: 0 12px; border-right: 1.5px solid var(--black); font-size: 13px }
+  .tray input { flex: 1; min-width: 0; padding: 0 14px; font: 400 26px var(--ipa); outline: none }
+  .tray input::placeholder { font: 500 15px var(--sans); color: #111a }
+  .tray .btns { display: flex }
+  .tray .btns button { padding: 0 12px; border-left: 1.5px solid var(--black); font-weight: 700; font-size: 14px; transition: background .15s }
+  .tray .btns button:hover { background: var(--lime) }
+  .tray .btns button[data-act="cpy"] { background: var(--mag) }
+  .tray .btns button[data-act="cpy"]:hover { background: var(--black); color: var(--mag) }
+  #trayBtn { display: none }
+
+  /* search overlay */
+  .search { position: fixed; inset: 0; z-index: 70; background: var(--pink); display: none; flex-direction: column; align-items: center; padding: clamp(60px, 14vh, 140px) 16px 40px; overflow: auto }
+  .search.on { display: flex }
+  .search .box { width: min(780px, 100%) }
+  .search .lab { font-weight: 700; font-size: 15px; margin-bottom: 10px; display: flex; justify-content: space-between }
+  .search input { width: 100%; border-bottom: 2px solid var(--black); font: 700 clamp(34px, 6vw, 72px)/1.1 var(--sans); letter-spacing: -.04em; padding: 6px 0; outline: none }
+  .search input::placeholder { color: #1115 }
+  .results { margin-top: 18px; display: none }
+  .results.on { display: block }
+  .results button { width: 100%; display: grid; grid-template-columns: 70px 1fr auto; gap: 16px; align-items: center; padding: 8px 10px 8px 0; border-bottom: 1.5px solid var(--black); text-align: left; transition: background .15s, padding .3s var(--spring) }
+  .results button:hover, .results button.on { background: var(--white); padding-left: 10px }
+  .results .g { height: 56px; display: grid; place-items: center; border: 1.5px solid var(--black); font: 400 30px/1 var(--ipa); background: var(--white) }
+  .results b { font-weight: 700; font-size: 19px; letter-spacing: -.02em; display: block } .results small { font-size: 13.5px; font-weight: 500 }
+  .results .empty { padding: 14px 0; font-weight: 600 }
+  .search .close { position: absolute; top: 16px; right: 16px; width: 52px; height: 60px; border: 1.5px solid var(--black); background: var(--white); font-size: 22px }
+
+  /* drawer */
+  .drawer { position: fixed; top: 16px; right: 16px; bottom: calc(var(--bar) + 30px); z-index: 60; width: min(430px, calc(100% - 32px)); background: var(--cream); border: 1.5px solid var(--black); box-shadow: 8px 8px 0 var(--black);
+            transform: translateX(calc(100% + 90px)) rotate(4deg); visibility: hidden; transition: transform .55s var(--spring), visibility 0s .55s; display: flex; flex-direction: column }
+  .drawer.on { transform: none; visibility: visible; transition: transform .55s var(--spring), visibility 0s }
+  .dr-hd { display: flex; align-items: stretch; border-bottom: 1.5px solid var(--black); min-height: 52px }
+  .dr-hd .tag { flex: 1; min-width: 0; padding: 0 14px; overflow: hidden; white-space: nowrap }
+  .dr-hd button { width: 52px; flex: none; display: grid; place-items: center; border-left: 1.5px solid var(--black); transition: background .15s }
+  .dr-hd button:hover { background: var(--lime) }
+  .dr-hd svg { width: 15px; height: 15px }
+  .dr-body { overflow: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px }
+  .dr-sym { position: relative; height: 190px; background: var(--dc, var(--lime)); border: 1.5px solid var(--black); display: grid; place-items: center; font: 400 110px/1 var(--ipa) }
+  .dr-sym .tag { position: absolute; right: 10px; bottom: 8px; font-size: 12px }
+  .dr-body h3 { font-weight: 700; font-size: 32px; line-height: .95; letter-spacing: -.045em }
+  .anat { border: 1.5px solid var(--black); background: var(--white) }
+  .anat div { display: grid; grid-template-columns: 92px 1fr; border-top: 1.5px solid var(--black) }
   .anat div:first-child { border-top: 0 }
-  .anat dt { padding: 10px 12px; font: 500 11.5px var(--mono); color: var(--cyan); border-right: 1px solid #ffffff30 }
-  .anat dd { padding: 9px 12px; font-size: 13.5px } .anat dd b { display: block; font-weight: 500; font-size: 15px; color: #fff }
-  .anat dd span { color: #ffffffb8 }
+  .anat dt { padding: 10px 12px; font-weight: 700; font-size: 13px; border-right: 1.5px solid var(--black) }
+  .anat dd { padding: 9px 12px; font-size: 14px; font-weight: 500 } .anat dd b { display: block; font-weight: 700; font-size: 16px; letter-spacing: -.01em }
   .listen { display: flex; flex-direction: column; gap: 6px }
-  .listen button { display: flex; align-items: stretch; background: #ffffff10; text-align: left; transition: background .15s }
-  .listen button:hover { background: #ffffff1f }
-  .listen button i { width: 46px; display: grid; place-items: center; background: var(--blue); color: var(--navy); flex: none }
-  .listen button.on i { background: var(--green) }
+  .listen button { display: flex; align-items: center; gap: 10px; padding: 5px 14px 5px 5px; border: 1.5px solid var(--black); border-radius: 99px; background: var(--white); text-align: left; transition: background .15s }
+  .listen button:hover { background: var(--lime) }
+  .listen button i { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; background: var(--mag); flex: none }
+  .listen button.on i { background: var(--black); color: var(--mag) }
   .listen button i svg { width: 12px; height: 12px }
-  .listen b { font: 400 24px/1 var(--ipa); padding: 10px 12px; flex: 1 } .listen small { font: 400 11.5px var(--mono); color: #ffffffa0; padding: 0 12px; align-self: center }
-  .codes { font: 400 12.5px/1.7 var(--mono); color: #ffffffc0 }
-  .codes b { color: #fff; font-weight: 500 }
-  .dr-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px }
-  .dr-acts button { padding: 12px; font-weight: 500; background: var(--paper); color: var(--ink); transition: background .15s }
-  .dr-acts button:first-child { background: var(--green) }
-  .dr-acts button:hover { background: var(--sky) }
-  .dr-ex { font: 400 20px var(--ipa) }
+  .listen b { font: 400 24px/1 var(--ipa); flex: 1 } .listen small { font-weight: 600; font-size: 12.5px }
+  .codes { font-size: 13.5px; line-height: 1.6; font-weight: 500 }
+  .codes b { font-weight: 700 }
+  .dr-acts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px }
+  .dr-acts button { padding: 12px; font-weight: 700; border: 1.5px solid var(--black); border-radius: 99px; background: var(--white); transition: background .15s, color .15s }
+  .dr-acts button:first-child { background: var(--black); color: var(--lime) }
+  .dr-acts button:hover { background: var(--mag); color: var(--black) }
+  .dr-ex { font: 400 21px var(--ipa) }
 
-  /* ---------- cursor follower ---------- */
-  .follow { position: fixed; left: 0; top: 0; z-index: 70; pointer-events: none; opacity: 0; transition: opacity .15s }
+  /* follower */
+  .follow { position: fixed; left: 0; top: 0; z-index: 65; pointer-events: none; opacity: 0; transition: opacity .15s }
   .follow.on { opacity: 1 }
-  .follow .chip { background: var(--navy); color: #fff; font-size: 12.5px; padding: 6px 10px; white-space: nowrap }
-  .follow .pv { width: 150px; height: 150px; background-color: var(--paper); border: 1px solid var(--line); display: grid; place-items: center; font: 400 76px/1 var(--ipa); position: relative;
-                background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 15px 15px }
-  .follow .pv::before { content: ''; position: absolute; left: 15px; top: 15px; width: 15px; height: 15px; background: var(--green) }
+  .follow .chip { background: var(--black); color: var(--white); font-weight: 600; font-size: 13.5px; padding: 6px 12px; border-radius: 99px; white-space: nowrap }
+  .follow .pv { width: 150px; height: 116px; background: var(--white); border: 1.5px solid var(--black); box-shadow: 5px 5px 0 var(--black); display: grid; place-items: center; font: 400 66px/1 var(--ipa); transform: rotate(-6deg) }
 
-  .toast { position: fixed; left: 50%; bottom: calc(var(--nav) + 18px); z-index: 80; transform: translate(-50%, 14px); opacity: 0; pointer-events: none; background: var(--green); color: var(--ink); padding: 10px 16px; font-weight: 500; border: 1px solid var(--line); transition: opacity .2s, transform .3s var(--ease) }
-  .toast.on { opacity: 1; transform: translate(-50%, 0) }
+  .toast { position: fixed; left: 50%; top: 22px; z-index: 80; transform: translate(-50%, -20px) rotate(-2deg); opacity: 0; pointer-events: none; background: var(--black); color: var(--lime); padding: 10px 18px; border-radius: 99px; font-weight: 700; transition: opacity .2s, transform .4s var(--spring) }
+  .toast.on { opacity: 1; transform: translate(-50%, 0) rotate(-2deg) }
 
   /* ---------- responsive ---------- */
+  @media (max-width: 1100px) {
+    .tray { width: min(360px, calc(100% - 32px)) } .tray .tag { display: none }
+  }
   @media (max-width: 960px) {
     .sec-hd { grid-template-columns: 1fr }
-    .explore { grid-template-columns: 1fr } .def { border-left: 0; border-top: 1px solid var(--line); min-height: 0 }
+    .explore { grid-template-columns: 1fr } .def { transform: none }
     .twocol { grid-template-columns: 1fr }
-    .quiz { grid-template-columns: 1fr } .opts { grid-template-columns: 1fr 1fr } .opt:nth-child(2) { border-right: 0 } .opt:nth-child(-n+2) { border-bottom: 1px solid var(--line) }
+    .quiz { grid-template-columns: 1fr } .bigplay { aspect-ratio: auto; border-radius: 99px; min-height: 90px }
+    .opts { grid-template-columns: 1fr 1fr } .opt:nth-child(2) { border-right: 0 } .opt:nth-child(-n+2) { border-bottom: 1.5px solid var(--lime) }
     footer .wrap { grid-template-columns: 1fr }
+    body { padding-bottom: 150px }
+    .navbox { right: 16px } .navbox .word { flex: 1 }
+    .tray { left: 16px; right: 16px; width: auto; bottom: calc(16px + var(--bar) + 8px); height: 50px }
+    .drawer { bottom: calc(var(--bar) * 2 + 40px) }
   }
   @media (max-width: 640px) {
-    :root { --cell: 32px }
-    .topbar .box { padding: 0 14px } .topbar .nm { font-size: 14px }
-    .stats { grid-template-columns: 1fr 1fr } .stats div:nth-child(2) { border-right: 0 } .stats div:nth-child(-n+2) { border-bottom: 1px solid #04111f30 }
-    .lrow { grid-template-columns: 64px minmax(0, 1fr) 52px } .lrow .m, .lrow .e { display: none }
+    :root { --bar: 52px }
+    .navbox .word small { display: none } .navbox .word { font-size: 18px }
+    .hero { display: flex; flex-direction: column; min-height: 0; padding-bottom: 50px }
+    .hcards { position: relative; inset: auto; order: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 10px; padding: 34px 12px 0 }
+    .hcard { position: relative; left: auto !important; top: auto !important; width: 128px } .hcard:nth-child(n+9) { display: none }
+    .hcard .g { font-size: 30px } .hcard b { font-size: 12px }
+    .hero .inner { padding-top: 90px }
+    .pulm .ph { font-size: 10.5px; hyphens: auto; -webkit-hyphens: auto; padding: 8px 2px }
+    .hero .stem { display: none }
+    .lrow { grid-template-columns: 64px minmax(0, 1fr) 54px } .lrow .m, .lrow .e { display: none }
     .list:not(.tones) .lhead span:nth-child(3), .list:not(.tones) .lhead span:nth-child(4) { display: none }
-    .vow .ll span { right: 8px; font-size: 10.5px }
-    .tones .lrow { grid-template-columns: 56px 56px minmax(0, 1fr) 52px }
-    .pulm { --lab: 112px; min-width: 760px; grid-template-rows: auto repeat(8, 54px) } .pulm .sy { width: 38px; height: 38px; font-size: 25px } .pulm .rl { font-size: 13px; padding: 0 10px }
-    .vow { min-width: 560px; grid-template-columns: 84px 1fr } .vow .sy { width: 40px; height: 40px; font-size: 26px }
-    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)) }
-    .opt .g { font-size: 48px } .opt { min-height: 140px }
-    .tray .tag { display: none } .tray input { font-size: 22px; margin: 8px 0 8px 8px } .tray .btns button { padding: 0 10px }
-    .drawer { bottom: var(--nav) } .dr-sym { height: 150px; font-size: 84px }
+    .tones .lrow { grid-template-columns: 56px 56px minmax(0, 1fr) 54px }
+    .pulm { --lab: 116px; min-width: 780px; grid-template-rows: auto repeat(8, 56px) } .pulm .sy { width: 40px; height: 40px; font-size: 26px } .pulm .rl { font-size: 14px; padding: 0 10px }
+    .vow { min-width: 580px; grid-template-columns: 96px 1fr } .vow .sy { width: 44px; height: 44px; font-size: 28px } .vow .ll span { right: 6px; font-size: 13px }
+    .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px } .card { min-height: 130px }
+    .opt .g { font-size: 50px } .opt { min-height: 150px }
+    .drawer { top: 10px; left: 10px; right: 10px; width: auto } .dr-sym { height: 140px; font-size: 80px }
     .follow { display: none }
   }
   @media (hover: none) { .follow { display: none } }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } * { transition: none !important } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto } *, .rise { transition: none !important; animation: none !important } .rise { opacity: 1; transform: none } }
 </style>
 </head>
 <body>
-<canvas id="trail" aria-hidden="true"></canvas>
 
-<header class="top" id="overview">
-  <div class="topbar">
-    <span class="nm">IPA Chart ’20</span>
-    <span class="box"><span class="tag"><i>&lt;rev&gt;</i>Revised to 2020<i>&lt;/rev&gt;</i></span></span>
+<button class="burger" id="burger" aria-label="Sections menu" aria-expanded="false" aria-controls="menu"><i></i></button>
+<nav class="menu" id="menu" aria-label="Sections" aria-hidden="true">
+  <div id="tabs">
+    <a href="#overview"><small>00</small>Overview</a>
+    <a href="#consonants"><small>01</small>Consonants</a>
+    <a href="#vowels"><small>02</small>Vowels</a>
+    <a href="#other"><small>03</small>Other consonants</a>
+    <a href="#diacritics"><small>04</small>Diacritics</a>
+    <a href="#prosody"><small>05</small>Stress &amp; tone</a>
+    <a href="#practice"><small>06</small>Practice</a>
   </div>
-  <div class="cta">
-    <label>
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="7" cy="7" r="5"/><path d="M11 11l3.5 3.5"/></svg>
-      <input id="q" type="search" placeholder="Search 178 symbols — try “velar”, “ʃ” or “U+0283”" autocomplete="off" spellcheck="false" aria-label="Search symbols" aria-controls="results">
-      <div class="results" id="results" role="listbox"></div>
-    </label>
-    <a class="arrowsq" href="#consonants" aria-label="Start with consonants"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"><path d="M3 11L11 3M5 3h6v6"/></svg></a>
-  </div>
-</header>
+</nav>
 
 <main>
-  <div class="hero">
-    <span class="tag"><i>&lt;guide&gt;</i>International Phonetic Alphabet<i>&lt;/guide&gt;</i></span>
-    <h1>Every sound a human voice can make</h1>
-    <p>An interactive guide to the standard IPA chart. Pick a term to see where it sits on the chart, click any symbol to hear the official recording and learn how it's made, then test your ear.</p>
-    <div class="stats" id="stats"></div>
-  </div>
+  <header class="hero" id="overview">
+    <div class="hcards" id="hcards"></div>
+    <div class="stem" aria-hidden="true"></div>
+    <div class="inner">
+      <h1>Hear every sound</h1>
+      <p>The complete <u>International Phonetic Alphabet</u>: every symbol from the official chart, recordings by phoneticians, and plain-language notes on how each sound is made. Click a card to start.</p>
+      <div class="stats" id="stats"></div>
+      <div class="row"><a class="pillb" href="#consonants">Explore the charts ↓</a><a class="pillb mag" href="#practice">Train your ear</a></div>
+    </div>
+  </header>
 
-  <div class="wrap">
-    <section class="sec" id="consonants">
-      <div class="sec-hd">
-        <div><span class="tag"><i>&lt;section&gt;</i>01<i>&lt;/section&gt;</i></span><h2>Consonants (pulmonic)</h2></div>
-        <p>Pulmonic consonants use air pushed out from the lungs. Each one is described by three things: <b>where</b> the airflow is blocked (place), <b>how</b> it's blocked (manner), and whether the vocal folds vibrate (<b>voicing</b>). Choose a term to light it up on the chart.</p>
+  <section class="sec" id="consonants">
+    <div class="wrap">
+      <div class="sec-hd rise">
+        <div><h2>Consonants<span class="badge">59 symbols</span></h2></div>
+        <p>Pulmonic consonants use air pushed out from the lungs. Each one is described by <b>where</b> the airflow is blocked (place), <b>how</b> it's blocked (manner), and whether the vocal folds vibrate (<b>voicing</b>). Pick a term to light it up.</p>
       </div>
-      <div class="explore" data-ex="cons"></div>
-      <div class="scroll"><div id="pulm"></div></div>
+      <div class="explore rise" data-ex="cons" style="--rot:2deg"></div>
+      <div class="scroll rise" style="--rot:-1deg"><div id="pulm"></div></div>
       <p class="note">Symbols to the right in a cell are voiced, to the left are voiceless. Shaded areas denote articulations judged impossible.</p>
-    </section>
+    </div>
+  </section>
 
-    <section class="sec" id="vowels">
-      <div class="sec-hd">
-        <div><span class="tag"><i>&lt;section&gt;</i>02<i>&lt;/section&gt;</i></span><h2>Vowels</h2></div>
-        <p>Vowels are made with an open vocal tract. The chart is a map of the mouth: up and down is <b>height</b> (how high the tongue is), left to right is <b>backness</b> (front of the mouth on the left), and pairs show <b>rounding</b> of the lips.</p>
+  <section class="sec" id="vowels">
+    <div class="wrap">
+      <div class="sec-hd rise">
+        <div><h2>Vowels<span class="badge">28 symbols</span></h2></div>
+        <p>The vowel chart is a map of the mouth: up and down is <b>height</b> (how high the tongue is), left to right is <b>backness</b> (front of the mouth on the left), and pairs show <b>rounding</b> of the lips.</p>
       </div>
-      <div class="explore" data-ex="vow"></div>
-      <div class="vwrap scroll"><div id="vow"></div></div>
+      <div class="explore rise" data-ex="vow" style="--rot:-2deg"></div>
+      <div class="scroll rise" style="--rot:1.5deg"><div id="vow"></div></div>
       <p class="note">Where symbols appear in pairs, the one to the right represents a rounded vowel.</p>
-    </section>
+    </div>
+  </section>
 
-    <section class="sec" id="other">
-      <div class="sec-hd">
-        <div><span class="tag"><i>&lt;section&gt;</i>03<i>&lt;/section&gt;</i></span><h2>Other consonants</h2></div>
+  <section class="sec" id="other">
+    <div class="wrap">
+      <div class="sec-hd rise">
+        <div><h2>Other consonants<span class="badge">27 symbols</span></h2></div>
         <p>Not every consonant uses air from the lungs. <b>Clicks</b>, <b>implosives</b> and <b>ejectives</b> move air with the tongue or the larynx instead. A few more sounds, like double articulations, don't fit the main grid.</p>
       </div>
       <div class="twocol">
-        <div class="list" id="nonpulm"></div>
-        <div class="list" id="others"></div>
+        <div class="list rise" id="nonpulm" style="--rot:-2deg"></div>
+        <div class="list rise" id="others" style="--rot:2deg"></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="sec" id="diacritics">
-      <div class="sec-hd">
-        <div><span class="tag"><i>&lt;section&gt;</i>04<i>&lt;/section&gt;</i></span><h2>Diacritics</h2></div>
-        <p>Diacritics are small marks added to a symbol to show a finer detail: a <b>t</b> with a puff of air becomes <span class="ipa">tʰ</span>, a nasal vowel <span class="ipa">ẽ</span>. The dotted circle ◌ stands for any base symbol. Some diacritics may be placed above a symbol with a descender, e.g. <span class="ipa">ŋ̊</span>.</p>
+  <section class="sec" id="diacritics">
+    <div class="wrap">
+      <div class="sec-hd rise">
+        <div><h2>Diacritics<span class="badge">31 marks</span></h2></div>
+        <p>Small marks added to a symbol to show a finer detail: <span class="ipa">t</span> with a puff of air becomes <span class="ipa">tʰ</span>, a nasal vowel <span class="ipa">ẽ</span>. The dotted circle ◌ stands for any base symbol. Some diacritics may be placed above a symbol with a descender, e.g. <span class="ipa">ŋ̊</span>.</p>
       </div>
-      <div class="cards" id="diac"></div>
-    </section>
+      <div class="cards rise" id="diac" style="--rot:1deg"></div>
+    </div>
+  </section>
 
-    <section class="sec" id="prosody">
-      <div class="sec-hd">
-        <div><span class="tag"><i>&lt;section&gt;</i>05<i>&lt;/section&gt;</i></span><h2>Stress, length &amp; tone</h2></div>
-        <p><b>Suprasegmentals</b> describe features that stretch over more than one sound, like stress and length. <b>Tones</b> use pitch to tell words apart; write them as accent marks over a vowel or as Chao tone letters after the syllable.</p>
+  <section class="sec" id="prosody">
+    <div class="wrap">
+      <div class="sec-hd rise">
+        <div><h2>Stress, length &amp; tone<span class="badge">33 marks</span></h2></div>
+        <p><b>Suprasegmentals</b> stretch over more than one sound, like stress and length. <b>Tones</b> use pitch to tell words apart: write them as accent marks over a vowel or as Chao tone letters after the syllable.</p>
       </div>
       <div class="twocol">
-        <div class="list" id="supra"></div>
-        <div class="list tones" id="tones"></div>
+        <div class="list rise" id="supra" style="--rot:-1.5deg"></div>
+        <div class="list tones rise" id="tones" style="--rot:1.5deg"></div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="sec" id="practice">
-      <div class="sec-hd">
-        <div><span class="tag"><i>&lt;section&gt;</i>06<i>&lt;/section&gt;</i></span><h2>Train your ear</h2></div>
-        <p>Listen to an official recording and pick the symbol you heard. Wrong answers show you the right one, so every round teaches something.</p>
+  <section class="sec" id="practice">
+    <div class="wrap">
+      <div class="sec-hd rise">
+        <div><h2>Train your ear<span class="badge">Quiz</span></h2></div>
+        <p>Listen to an official recording and pick the symbol you heard. The wrong choices are similar sounds, and every answer shows you the names, so each round teaches something.</p>
       </div>
-      <div class="quiz">
+      <div class="quiz rise" style="--rot:-1.5deg">
         <div class="q-left">
           <div class="seg" role="group" aria-label="Question set">
             <button data-set="cons" aria-pressed="true">Consonants</button>
@@ -396,16 +438,16 @@
         <div class="q-right">
           <div class="qh"><h3>Which symbol did you hear?</h3><p id="qHint">Press play, then choose. Keys 1–4 work too.</p></div>
           <div class="opts" id="opts"></div>
-          <div class="q-foot"><span class="msg" id="qMsg"></span><button class="next" id="qNext">Next sound <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 7h10M8 3l4 4-4 4"/></svg></button></div>
+          <div class="q-foot"><span class="msg" id="qMsg"></span><button class="next" id="qNext">Next sound →</button></div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="wrap">
-    <div><span class="tag"><i>&lt;about&gt;</i>Sources<i>&lt;/about&gt;</i></span><h2>Built on the official IPA Chart.</h2></div>
+    <h2>Built on the official IPA Chart.</h2>
     <div>
       <p>Chart content: <a href="https://www.internationalphoneticassociation.org/content/ipa-chart" target="_blank" rel="noopener">IPA Chart</a>, available under a Creative Commons Attribution-Sharealike 3.0 Unported License. Copyright © 2020 International Phonetic Association.</p>
       <p>Recordings by John Esling, Jill House, Peter Ladefoged and John Wells, played from the IPA's <a href="https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_EI/IPA_charts_EI.html" target="_blank" rel="noopener">interactive chart</a>. Explanations on this page are simplified for learners.</p>
@@ -413,21 +455,30 @@
   </div>
 </footer>
 
-<div class="tray" id="tray" aria-hidden="true">
+<div class="navbox">
+  <a class="logo" href="#overview" aria-label="Back to top"><span>ə</span></a>
+  <a class="word" href="#overview">IPA Chart <small id="navSec">Overview</small></a>
+  <span><button class="pillb" id="searchBtn">Search <kbd style="font:inherit;opacity:.5">/</kbd></button></span>
+  <span><a class="pillb mag" href="#practice">Practice</a></span>
+</div>
+
+<div class="tray" id="tray">
   <div class="in">
-    <span class="tag"><i>&lt;tray&gt;</i></span>
+    <span class="tag">Tray <b id="trayN">0</b></span>
     <input id="trayIn" autocomplete="off" spellcheck="false" placeholder="Your transcription…" aria-label="Transcription">
     <div class="btns"><button data-act="bk" aria-label="Delete last character">⌫</button><button data-act="clr">Clear</button><button data-act="cpy">Copy</button></div>
   </div>
 </div>
+<button id="trayBtn" aria-hidden="true" tabindex="-1"></button>
 
-<nav class="tabs" aria-label="Sections">
-  <div class="items" id="tabs">
-    <a href="#overview">Overview</a><a href="#consonants">Consonants</a><a href="#vowels">Vowels</a><a href="#other">Other</a><a href="#diacritics">Diacritics</a><a href="#prosody">Stress &amp; tone</a><a href="#practice">Practice</a>
-    <button class="trayb" id="trayBtn" aria-expanded="false" aria-controls="tray">Tray <b id="trayN">0</b></button>
+<div class="search" id="search" role="dialog" aria-modal="true" aria-label="Search symbols">
+  <button class="close" id="searchClose" aria-label="Close search">×</button>
+  <div class="box">
+    <div class="lab"><span>Search 178 symbols</span><span>↑ ↓ to choose · Enter to open · Esc to close</span></div>
+    <input id="q" type="search" placeholder="velar, ʃ, U+0283…" autocomplete="off" spellcheck="false" aria-label="Search symbols" aria-controls="results">
+    <div class="results" id="results" role="listbox"></div>
   </div>
-  <a class="arrowsq" href="#overview" aria-label="Back to top"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"><path d="M3 11L11 3M5 3h6v6"/></svg></a>
-</nav>
+</div>
 
 <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="drName">
   <div class="dr-hd">
@@ -686,6 +737,7 @@ function openSym(id, scroll) {
     ${ex ? `<div><span class="tag" style="color:#ffffff90"><i>&lt;example&gt;</i></span><div class="dr-ex">${ex}</div></div>` : ''}
     <div class="codes"><b>Unicode</b> ${s.uplus} · ${esc(cap(s.un.toLowerCase()))}<br>${s.n ? `<b>IPA no.</b> ${esc(s.n)} · ${esc(s.in)}` : ''}</div>
     <div class="dr-acts"><button data-ins>Add to tray</button><button data-copy>Copy symbol</button></div>`;
+  drawer.style.setProperty('--dc', SECCOL[s.t]);
   drawer.classList.add('on'); drawer.setAttribute('aria-hidden', 'false');
   if (scroll) document.getElementById(CHARTS[s.t].sec).scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
 }
@@ -711,11 +763,11 @@ drawer.addEventListener('click', async e => {
 document.addEventListener('click', e => {
   const p = e.target.closest('[data-play]');
   if (p) { e.stopPropagation(); const s = BY.get(+p.dataset.play); play(s, 0, p); return }
-  const el = e.target.closest('main .sy, main .lrow[data-id], main .card');
+  const el = e.target.closest('main .sy, main .lrow[data-id], main .card, .hcard');
   if (!el) return;
   const s = BY.get(+el.dataset.id);
   openSym(s.id);
-  if (el.classList.contains('sy') && s.a.length && s.a[0][1] === 0) play(s, 0, $('.listen button[data-k="0"]'));
+  if ((el.classList.contains('sy') || el.classList.contains('hcard')) && s.a.length && s.a[0][1] === 0) play(s, 0, $('.listen button[data-k="0"]'));
 });
 
 // ---------- tray ----------
@@ -756,10 +808,9 @@ function search() {
     : `<div class="empty">No symbols match “${esc(raw)}”.</div>`;
   results.classList.add('on');
 }
-const pick = s => { results.classList.remove('on'); q.blur(); openSym(s.id, true) };
+const pick = s => { closeSearch(); openSym(s.id, true) };
 q.addEventListener('input', search);
 q.addEventListener('focus', search);
-q.addEventListener('blur', () => setTimeout(() => results.classList.remove('on'), 150));
 q.addEventListener('keydown', e => {
   if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
     e.preventDefault(); if (!hits.length) return;
@@ -768,7 +819,7 @@ q.addEventListener('keydown', e => {
     $$('button', results)[hi].scrollIntoView({ block: 'nearest' });
   }
   if (e.key === 'Enter' && hits[hi]) pick(hits[hi]);
-  if (e.key === 'Escape') { q.value = ''; search(); q.blur() }
+  if (e.key === 'Escape') { closeSearch() }
 });
 results.addEventListener('mousedown', e => { const b = e.target.closest('button'); if (b) { e.preventDefault(); pick(BY.get(+b.dataset.id)) } });
 
@@ -815,8 +866,8 @@ newQuestion();
 // ---------- keyboard ----------
 addEventListener('keydown', e => {
   const typing = e.target.matches('input');
-  if (e.key === '/' && !typing) { e.preventDefault(); q.focus(); return }
-  if (e.key === 'Escape') { if (drawer.classList.contains('on')) closeDrawer(); else toggleTray(false); return }
+  if (e.key === '/' && !typing) { e.preventDefault(); openSearch(); return }
+  if (e.key === 'Escape') { if (searchEl.classList.contains('on')) closeSearch(); else if (menuEl.classList.contains('on')) toggleMenu(false); else if (drawer.classList.contains('on')) closeDrawer(); else toggleTray(false); return }
   if (typing) return;
   if (drawer.classList.contains('on') && (e.key === 'ArrowRight' || e.key === 'ArrowLeft') && !e.target.closest('.scroll')) { e.preventDefault(); stepSym(e.key === 'ArrowRight' ? 1 : -1) }
   const r = $('#practice').getBoundingClientRect();
@@ -828,52 +879,62 @@ const tabLinks = $$('#tabs a');
 const secObs = new IntersectionObserver(es => es.forEach(en => {
   if (!en.isIntersecting) return;
   tabLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + en.target.id));
-  $('#tabs a.on')?.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+  $('#navSec').textContent = { overview: 'Overview', consonants: 'Consonants', vowels: 'Vowels', other: 'Other consonants', diacritics: 'Diacritics', prosody: 'Stress & tone', practice: 'Practice' }[en.target.id] || '';
 }), { rootMargin: '-45% 0px -50% 0px' });
 ['overview', 'consonants', 'vowels', 'other', 'diacritics', 'prosody', 'practice'].forEach(id => secObs.observe(document.getElementById(id)));
 
-// ---------- cursor follower (name chip on chart symbols, preview on list rows) ----------
-const follow = $('#follow');
-let fx = 0, fy = 0, fTarget = null;
-if (fine) {
-  addEventListener('pointermove', e => {
-    fx = e.clientX; fy = e.clientY;
-    const el = e.target.closest?.('main .sy, main .lrow[data-id], main .card');
-    if (el !== fTarget) {
-      fTarget = el;
-      if (!el) { follow.classList.remove('on'); return }
-      const s = BY.get(+el.dataset.id);
-      follow.innerHTML = el.classList.contains('lrow') || el.classList.contains('card') ? `<div class="pv">${esc(s.g)}</div>` : `<div class="chip">${esc(s.name)}${s.a.length ? ' · click to hear' : ''}</div>`;
-      follow.classList.add('on');
-    }
-    follow.style.transform = `translate(${Math.min(fx + 18, innerWidth - follow.offsetWidth - 8)}px, ${Math.max(8, fy - follow.offsetHeight - 14)}px)`;
-  });
-}
 
-// ---------- grid-paper cursor trail (the Sui-style hover cells) ----------
-const cv = $('#trail'), ctx = cv.getContext('2d');
-const trail = new Map();
-let dpr = 1;
-function size() { dpr = devicePixelRatio || 1; cv.width = innerWidth * dpr; cv.height = innerHeight * dpr; cv.style.width = innerWidth + 'px'; cv.style.height = innerHeight + 'px' }
-size(); addEventListener('resize', size);
-let px = -1, py = -1;
-if (fine && !reduce) {
-  addEventListener('pointermove', e => { px = e.clientX; py = e.clientY });
-  document.addEventListener('pointerleave', () => { px = py = -1 });
-  (function draw(t) {
-    const C = parseFloat(getComputedStyle(document.body).backgroundSize) || 40;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, innerWidth, innerHeight);
-    if (px >= 0) { const k = Math.floor((px + scrollX) / C) + ',' + Math.floor((py + scrollY) / C); trail.set(k, t) }
-    let curKey = px >= 0 ? Math.floor((px + scrollX) / C) + ',' + Math.floor((py + scrollY) / C) : null;
-    trail.forEach((born, k) => {
-      const age = t - born; if (age > 900) { trail.delete(k); return }
-      const [cx, cy] = k.split(',').map(Number);
-      ctx.fillStyle = k === curKey ? '#3ee08f' : `rgba(160, 210, 255, ${0.75 * (1 - age / 900)})`;
-      ctx.fillRect(cx * C - scrollX + 1, cy * C - scrollY + 1, C - 1, C - 1);
-    });
-    requestAnimationFrame(draw);
-  })(performance.now());
+// ---------- colour per chart (drawer symbol box) ----------
+const SECCOL = { 0: 'var(--orange)', 4: 'var(--pink)', 1: 'var(--lilac)', 2: 'var(--lilac)', 3: 'var(--lime)', 5: 'var(--blue)', 6: 'var(--blue)' };
+
+// ---------- hero: scattered symbol cards that fly apart as you scroll ----------
+const HERO = [
+  [35, 3, 9, -14], [19, 13, 33, 26], [31, 2, 56, -20], [13, 17, 70, 12], [52, 21, 6, 22], [133, 29, 78, -9],
+  [140, 66, 63, 8], [119, 73, 7, -30], [60, 86, 22, 17], [61, 79, 45, -7], [71, 88, 66, 28], [49, 55, 84, -16], [41, 6, 87, 5], [18, 39, 92, 13],
+];
+const hcards = $('#hcards');
+hcards.innerHTML = HERO.map(([id, x, y, r], k) => {
+  const s = BY.get(id);
+  return `<button class="hcard" data-id="${id}" data-k="${k}" style="left:${x}%;top:${y}%" aria-label="${esc(s.g)}: ${esc(s.name)}"><span class="g">${esc(s.g)}</span><b>${esc(s.name)}</b></button>`;
+}).join('');
+const hEls = $$('.hcard');
+let heroT0 = performance.now();
+(function heroTick(t) {
+  const y = scrollY, h = innerHeight;
+  const narrow = innerWidth <= 640;
+  if (y < h * 1.4) hEls.forEach((el, k) => {
+    const [, x, , r] = HERO[k];
+    const side = x < 50 ? -1 : 1, speed = .25 + (k % 5) * .09;
+    const enter = reduce ? 1 : Math.min(1, Math.max(0, (t - heroT0 - k * 70) / 700));
+    const e = 1 - Math.pow(1 - enter, 3);
+    const tx = narrow ? 0 : side * y * (.12 + (k % 3) * .06);
+    const ty = (narrow ? 0 : -y * speed) + (1 - e) * 80;
+    const rot = (narrow ? r / 3 : r + (reduce ? 0 : y * .04 * side)) + (1 - e) * side * 25;
+    el.style.opacity = e;
+    el.style.transform = `translate(${tx}px, ${ty}px) rotate(${rot}deg)`;
+  });
+  requestAnimationFrame(heroTick);
+})(performance.now());
+
+// ---------- sections tilt into place as they scroll in ----------
+const riseObs = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); riseObs.unobserve(en.target) } }), { rootMargin: '0px 0px -8% 0px' });
+$$('.rise').forEach(el => riseObs.observe(el));
+
+// ---------- menu ----------
+const menuEl = $('#menu'), burger = $('#burger');
+function toggleMenu(on = !menuEl.classList.contains('on')) {
+  menuEl.classList.toggle('on', on); menuEl.setAttribute('aria-hidden', !on); burger.setAttribute('aria-expanded', on);
 }
+burger.onclick = () => toggleMenu();
+menuEl.addEventListener('click', e => { if (e.target.closest('a')) toggleMenu(false) });
+
+// ---------- search overlay ----------
+const searchEl = $('#search');
+function openSearch() { toggleMenu(false); searchEl.classList.add('on'); document.body.style.overflow = 'hidden'; q.focus(); search() }
+function closeSearch() { searchEl.classList.remove('on'); document.body.style.overflow = ''; q.value = ''; results.classList.remove('on'); q.blur() }
+$('#searchBtn').onclick = openSearch;
+$('#searchClose').onclick = closeSearch;
+searchEl.addEventListener('click', e => { if (e.target === searchEl) closeSearch() });
 </script>
 </body>
 </html>
